@@ -1,0 +1,23 @@
+{
+	"name": "quan-5-backend",
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.js",
+	"scripts": {
+		"start": "nodemon server.js",
+		"dev": "nodemon -r dotenv/config ./server.js dotenv_config_path=.env.dev dotenv_config_debug=true",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"type": "module",
+	"license": "ISC",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"dotenv": "^16.3.1",
+		"express": "^4.18.2",
+		"mysql": "^2.18.1",
+		"nodemon": "^2.0.22",
+		"swagger-ui-express": "^5.0.0",
+		"validator": "^13.9.0"
+	}
+}
