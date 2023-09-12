@@ -3,7 +3,7 @@
 Clone the repository using following command
 
 ```
-https://gitlab.com/quan-5-project/quan-5-backend.git
+https://github.com/Phuc2003-vietnam/CNPM-DATH
 ```
 
 To install dependency, open terminal
