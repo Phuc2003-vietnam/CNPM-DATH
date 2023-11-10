@@ -3,10 +3,12 @@ import cors from 'cors'
 import router from '../routers/index.js'
 import configSwagger from './swagger.js'
 import {} from "dotenv/config";
+import db from "./mongoDB.js";
 
 const port = process.env.PORT || 8080
 
 const configExpressApp = async (app) => {
+	db.connect()
 	app.set('port', port)
 	app.use(cors())
 	app.use(express.urlencoded({extended: false}))
@@ -22,7 +24,7 @@ const configExpressApp = async (app) => {
 
 	app.get('/', async function (req, res) {
 		try {
-			res.status(200).json({message: 'OK'})
+			res.status(200).json({message: 'OK2'})
 		} catch (err) {
 			res.status(500).json({message: err.message})
 		}
