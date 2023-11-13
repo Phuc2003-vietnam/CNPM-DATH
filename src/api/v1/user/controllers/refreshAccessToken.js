@@ -1,17 +1,15 @@
 import UserSerivce from '../services/index.js'
 
-const login = async (req, res, next) => {
+const refreshAccessToken = async (req, res, next) => {
 	try {
-		const {email, password} = req.body
-		await new UserSerivce().login({
-			email,
-			password,
+		const {refreshToken} = req.body
+		const data=await new UserSerivce().refreshAccessToken({
+			refreshToken
 		})
-		res.status(200).json({message: "Login success fully"})
+		res.status(200).json(data)
 	} catch (err) {
-		console.log("hello");
 		next(err)
 	}
 }
 
-export default login
+export default refreshAccessToken
