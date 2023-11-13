@@ -14,7 +14,7 @@ const register = async(req, res, next) => {
 			department,
 			room,
 		} = req.body
-		await new UserSerivce().register({
+		const data=await new UserSerivce().register({
 			email,
 			password,
 			role,
@@ -26,9 +26,8 @@ const register = async(req, res, next) => {
 			department,
 			room,
 		})
-		res.status(200).json('OK')
+		res.status(200).json({data})
 	} catch (err) {
-		console.log("gello");
 		next(err)
 	}
 }

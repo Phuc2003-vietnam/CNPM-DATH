@@ -6,8 +6,8 @@ async function login({email, password}) {
     const userRecord = await user.findOne({email})
     if (!userRecord) {
 		return Promise.reject({
-			status: 404,
-			message: 'You enter wrong email',
+			status: 401,
+			message: 'Email not correct',
 		})
 	} else{
         const isPasswordRight= await bcrypt.compare(password,userRecord.password)
@@ -18,7 +18,7 @@ async function login({email, password}) {
         else{
             return Promise.reject({
                 status: 404,
-                message: 'You enter wrong password',
+                message: 'Password not correct',
             })
         }
     }

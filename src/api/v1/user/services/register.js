@@ -26,30 +26,33 @@ async function register({
 		const hashedPassword = await bcrypt.hash(password, saltRounds)
 
 		if (role == 'student') {
-			await user.create({
+			return await user.create({
 				email,
 				password: hashedPassword,
 				mssv,
 				firstName,
 				lastName,
 				balance,
+				role
 			})
 		} else if (role == 'spso') {
-			await user.create({
+			return await user.create({
 				email,
 				password: hashedPassword,
 				firstName,
 				lastName,
-				location:{
-					facility
+				role,
+				location: {
+					facility,
 				},
 			})
 		} else if (role == 'staff') {
-			await user.create({
+			return await user.create({
 				email,
 				password: hashedPassword,
 				firstName,
 				lastName,
+				role,
 				location: {
 					facility,
 					department,

@@ -4,7 +4,6 @@ async function addPrinter({printerId, brand, model, location, status, descriptio
 	const data = await printer.findOne({printerId})
 	if (!data) {
 		const record=await printer.create({printerId, brand, model, location, status, description})
-        console.log(record);
         return record
 	}
     else {

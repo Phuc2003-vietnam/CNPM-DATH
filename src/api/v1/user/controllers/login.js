@@ -7,7 +7,7 @@ const login = async (req, res, next) => {
 			email,
 			password,
 		})
-		res.status(200).json(data)
+		res.status(200).json({data})
 	} catch (err) {
 		next(err)
 	}

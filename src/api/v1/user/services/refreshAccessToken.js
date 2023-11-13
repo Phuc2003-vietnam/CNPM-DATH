@@ -8,19 +8,24 @@ const refresh_token_key = process.env.REFRESH_TOKEN_KEY
 const refresh_token_expires_time = process.env.REFRESH_TOKEN_EXPIRES_TIME
 
 async function refreshAccessToken({refreshToken}) {
-	var {user_id,session_id}=jwt.verify(refreshToken,refresh_token_key)
-    const accessToken = jwt.sign(
-		{
-			user_id,
-			session_id
-		},
-		access_token_key,
-		{
-			expiresIn: access_token_expires_time,
-		}
-	)
-	await token.updateOne({user_id,session_id},{$set:{accessToken}})
-	return	{accessToken,refreshToken}
+	try{
+		var {user_id,session_id}=jwt.verify(refreshToken,refresh_token_key)
+		const accessToken = jwt.sign(
+			{
+				user_id,
+				session_id
+			},
+			access_token_key,
+			{
+				expiresIn: access_token_expires_time,
+			}
+		)
+		await token.updateOne({user_id,session_id},{$set:{accessToken}})
+		return	{accessToken,refreshToken}
+	}
+	catch (err) {
+		return Promise.reject({status: 401, message: 'Unauthorized'})
+	}
 
 }
 
