@@ -6,10 +6,8 @@ class Animal {
 }
 
 // Child class that extends the parent class
-class Dog extends Animal {
-	bark() {
-		console.log('Woof! Woof!')
-	}
+const a = new Animal()
+a.sayHi = function () {
+	console.log('dcm')
 }
-new Dog().sayName()
-new Dog().bark()
+a.sayHi()
