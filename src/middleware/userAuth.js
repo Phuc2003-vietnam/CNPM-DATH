@@ -7,9 +7,8 @@ const userAuth = async (req, res, next) => {
 	try {
 		const accessToken = req.headers.authorization.split(' ')[1]
 		var {user_id, session_id} = jwt.verify(accessToken, access_token_key)
-		console.log(user_id)
 		const userService = new UserSerivce()
-		req.userService = UserSerivce
+		req.userService = userService
 		req.accessToken=accessToken
 		next()
 	} catch (err) {
