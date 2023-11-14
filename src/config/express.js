@@ -21,7 +21,7 @@ const configExpressApp = async (app) => {
 		const data = error.data
 		res.status(status).json({message: message, data: data})
 	})
-
+	//handle error middleware
 	app.get('/', async function (req, res) {
 		try {
 			res.status(200).json({message: 'OK'})

@@ -8,8 +8,13 @@ const spsoAuth = async (req, res, next) => {
 		const accessToken = req.headers.authorization.split(' ')[1]
 		var {user_id, session_id} = jwt.verify(accessToken, access_token_key)
 		const spsoSerivce = new SpsoService()
-		req.spsoSerivce = spsoSerivce
-		next()
+		const userInfo = await spsoSerivce.getUserInfo(accessToken)
+		if (userInfo.role != 'spso') {
+			next({status: 401, message: 'Unauthorized'})
+		} else {
+			req.spsoSerivce = spsoSerivce
+			next()
+		}
 	} catch (err) {
 		next({status: 401, message: 'Unauthorized'})
 	}
