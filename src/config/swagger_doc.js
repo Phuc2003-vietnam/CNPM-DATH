@@ -325,6 +325,94 @@ const swagger_doc = {
 				},
 			},
 		},
+		'/v1/user/information/': {
+			get: {
+				tags: ['User'],
+				summary: 'Get infomation of usser',
+				responses: {
+					200: {
+						description: 'OK',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										data: {
+											type: 'object',
+											properties: {
+												email: {
+													type: 'string',
+												},
+												role: {
+													type: 'string',
+												},
+												mssv: {
+													type: 'string',
+												},
+												firstName: {
+													type: 'string',
+												},
+												lastName: {
+													type: 'string',
+												},
+												balance: {
+													type: 'integer',
+												},
+												printingLog: {
+													type: 'array',
+													items: 'string',
+													example: ["asduhui12h31xcxc","12dhuaschxd213"],
+												},
+												updated_at: {
+													type: 'string',
+													format: 'date-time',
+													example: '2023-07-23T16:47:49.000Z',
+												},
+												created_at: {
+													type: 'string',
+													format: 'date-time',
+													example: '2023-07-23T16:47:49.000Z',
+												},
+												location: {
+													type: 'object',
+													properties: {
+														facility: {
+															type: 'string',
+														},
+														department: {
+															type: 'string',
+														},
+														room: {
+															type: 'string',
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+					403: {
+						description: 'Email has been registered',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										message: {
+											type: 'string',
+											example: 'The email has been registered',
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
 		'/v1/spso/printer': {
 			post: {
 				summary: 'Add a new printer',
