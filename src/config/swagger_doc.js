@@ -276,7 +276,7 @@ const swagger_doc = {
 									refreshToken: {
 										type: 'string',
 										example: 'string',
-									}
+									},
 								},
 							},
 						},
@@ -361,7 +361,7 @@ const swagger_doc = {
 										properties: {
 											facility: {
 												type: 'string',
-												example: 'CS!',
+												example: 'CS1',
 											},
 											department: {
 												type: 'string',
@@ -443,6 +443,174 @@ const swagger_doc = {
 										message: {
 											type: 'string',
 											example: 'The ID has already bean used',
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		'/v1/spso/printers/': {
+			get: {
+				tags: ['Spso'],
+				summary: 'Filter and return list of printers',
+				parameters: [
+					{
+						name: 'status',
+						in: 'query',
+						description:
+							'activated : 1 , deactivated : 0, handle random status input beside 0,1 : 100',
+						required: true,
+						schema: {
+							enum: [0, 1, 100],
+							type: 'integer',
+							default: 1,
+						},
+					},
+					{
+						name: 'facility',
+						in: 'query',
+						description: 'handle random facility input:100',
+						required: true,
+						schema: {
+							enum: ['CS1', 'CS2', 'all', '100'],
+							type: 'string',
+							default: 'all',
+						},
+					},
+					{
+						name: 'sortDirection',
+						in: 'query',
+						description:
+							'Descending : -1, Ascending : 1, handle random sortDirection input beside -1,1:100',
+						required: true,
+						schema: {
+							enum: [-1, 1, 100],
+							type: 'integer',
+							default: -1,
+						},
+					},
+					{
+						name: 'per_page',
+						in: 'query',
+						type: 'integer',
+						description: 'Number of items per page',
+						required: false,
+					},
+					{
+						name: 'current_page',
+						in: 'query',
+						type: 'integer',
+						description: 'Current page number',
+						required: false,
+					},
+				],
+				responses: {
+					200: {
+						description: 'OK',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										data: {
+											type: 'object',
+											properties: {
+												per_page: {
+													type: 'integer',
+													example: 20,
+												},
+												current_page: {
+													type: 'integer',
+													example: 1,
+												},
+												total_pages: {
+													type: 'integer',
+													example: 1,
+												},
+												totalPrinter: {
+													type: 'integer',
+													example: 5,
+												},
+												activatedPrinter: {
+													type: 'integer',
+													example: 1,
+												},
+												printers: {
+													type: 'array',
+													items: {
+														type: 'object',
+														properties: {
+															location: {
+																type: 'object',
+																properties:
+																	{
+																		facility:
+																			{
+																				type: 'string',
+																				example: 'CS2',
+																			},
+																		department:
+																			{
+																				type: 'string',
+																				example: 'H1',
+																			},
+																		room: {
+																			type: 'string',
+																			example: '202',
+																		},
+																	},
+															},
+															printingLog: {
+																type: 'array',
+																items: 'string',
+																example: ["asduhui12h31xcxc","12dhuaschxd213"],
+															},
+															_id: {
+																type: 'string',
+																example: 'fa',
+															},
+															printerId: {
+																type: 'string',
+																example: 'H1101',
+															},
+															status: {
+																type: 'Number',
+																example: '1',
+															},
+															description: {
+																type: 'string',
+																example: 'This is a printer',
+															},
+															brand: {
+																type: 'string',
+																example: 'Ford',
+															},
+															model: {
+																type: 'string',
+																example: 'XYZ',
+															},
+															activatedTime: {
+																type: 'string',
+																format: 'date-time',
+																example: '2023-07-23T16:47:49.000Z',
+															},
+															updated_at: {
+																type: 'string',
+																format: 'date-time',
+																example: '2023-07-23T16:47:49.000Z',
+															},
+															created_at: {
+																type: 'string',
+																format: 'date-time',
+																example: '2023-07-23T16:47:49.000Z',
+															},
+														},
+													},
+												},
+											},
 										},
 									},
 								},

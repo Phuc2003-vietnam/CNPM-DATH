@@ -13,5 +13,4 @@ async function getUserInfo(accessToken) {
 		return Promise.reject({status: 401, message: 'Unauthorized'})
 	}
 }
-
 export default getUserInfo
