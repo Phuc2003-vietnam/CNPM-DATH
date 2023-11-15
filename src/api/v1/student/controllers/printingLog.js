@@ -30,3 +30,16 @@ export const confirm_print = async (req, res, next) => {
     }
 }
 
+export const getAll_Logs = async (req, res, next) => {
+    try {
+        const {user_id} = req.body
+        const data = await new StudentService().getAll_Logs({
+            user_id
+        })
+
+        res.status(200).json({data})
+    } catch (err) {
+        next(err)
+    }
+}
+
