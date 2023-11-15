@@ -1,7 +1,7 @@
 import printingLog from '#~/model/printingLog.js'
 import user from '#~/model/user.js'
 
-function total_pages(numVersion, pagesPerSheet, document){
+export function total_pages(numVersion, pagesPerSheet, document){
 
     let page_amount = 0
     let flag = (document.pages%pagesPerSheet===0) ? 0:1

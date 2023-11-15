@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const printingLog = new Schema(
   {
     status: { type: String, default: "default"},
-    finishDate: { type: Date, default: Date.now},
+    finishDate: { type: Date, default: null},
     
     paperSize: { type: String, default: "default", },
     numVersion: { type: Number, default: 0  },
