@@ -1,7 +1,7 @@
 import StudentService from '../services/index.js'
 
 // CONFRIM_PRINT
-const confirm_print = async (req, res, next) => {
+export const confirm_print = async (req, res, next) => {
     try {
         const {
             paperSize, 
@@ -29,6 +29,4 @@ const confirm_print = async (req, res, next) => {
         next(err)
     }
 }
-
-export default confirm_print
 
