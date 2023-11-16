@@ -81,14 +81,14 @@ async function confirm_print({
 		landScapeOption,
 		pagesPerSheet,
 		document,
-		user_id: userInfo._id,
+		user_id: userInfo._id.toString(),
 		printerId,
 	})
 
 	// Update the user document to associate the new printing log
 	let new_balance = userInfo.balance - pay_amount
 	await user.updateOne(
-		{_id: userInfo._id},
+		{_id: userInfo._id.toString()},
 		{
 			$push: {printingLog: newPrintingLog._id},
 			$set: {balance: new_balance},

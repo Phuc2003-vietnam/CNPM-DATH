@@ -13,6 +13,8 @@ const register = async(req, res, next) => {
 			facility,
 			department,
 			room,
+			classes,
+			major
 		} = req.body
 		const data=await new UserSerivce().register({
 			email,
@@ -25,6 +27,8 @@ const register = async(req, res, next) => {
 			facility,
 			department,
 			room,
+			classes,
+			major
 		})
 		res.status(200).json({data})
 	} catch (err) {
