@@ -21,7 +21,7 @@ async function filterListPrinter({
 			await printer.find({status: 1, 'location.facility': facility})
 		).length
 	} else {
-		var printers = await printer
+		var printers = await printer		//get ALL in CS1 and CS2
 			.find({status})
 			.skip((current_page - 1) * per_page)
 			.limit(per_page)
