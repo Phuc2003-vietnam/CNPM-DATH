@@ -7,6 +7,8 @@ const user = new Schema(
 		firstName: {type: String, default: null, maxLength: 50},
 		lastName: {type: String, default: null, maxLength: 50},
 		mssv: {type: String, default: null, maxLength: 50},
+		classes: {type: String, default: null, maxLength: 50},
+		major: {type: String, default: null, maxLength: 100},
 		role: {type: String, default: null, maxLength: 50},
 		balance: {type: Number, default: 0},
 		location: {

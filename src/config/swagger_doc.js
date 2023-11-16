@@ -128,6 +128,12 @@ const swagger_doc = {
 									mssv: {
 										type: 'string',
 									},
+									classes: {
+										type: 'string',
+									},
+									major: {
+										type: 'string',
+									},
 									firstName: {
 										type: 'string',
 									},
@@ -146,6 +152,7 @@ const swagger_doc = {
 									room: {
 										type: 'string',
 									},
+									
 								},
 							},
 							examples: {
@@ -158,6 +165,8 @@ const swagger_doc = {
 										lastName: 'lname',
 										balance: 100,
 										mssv: '2144452',
+										classes: "MT21KH12",
+										major: "Khoa hoc va ky thuat may tinh"
 									},
 								},
 								Staff: {
@@ -211,6 +220,12 @@ const swagger_doc = {
 													type: 'string',
 												},
 												mssv: {
+													type: 'string',
+												},
+												classes: {
+													type: 'string',
+												},
+												major: {
 													type: 'string',
 												},
 												firstName: {
