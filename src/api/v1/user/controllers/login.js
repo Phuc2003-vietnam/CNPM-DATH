@@ -3,7 +3,7 @@ import UserSerivce from '../services/index.js'
 const login = async (req, res, next) => {
 	try {
 		const {email, password} = req.body
-		const data=await new UserSerivce().login({
+		const data=await req.userService.login({
 			email,
 			password,
 		})

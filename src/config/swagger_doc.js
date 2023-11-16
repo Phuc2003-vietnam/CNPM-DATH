@@ -543,6 +543,116 @@ const swagger_doc = {
 				},
 			},
 		},
+		'/v1/spso//printer': {
+			put: {
+				summary: 'Edit a printer',
+				tags: ['Spso'],
+				requestBody: {
+					required: true,
+					content: {
+						'application/json': {
+							schema: {
+								type: 'object',
+								properties: {
+									printerId: {
+										type: 'string',
+										example: 'H1202',
+									},
+									status: {
+										type: 'boolean',
+										example: 1,
+									},
+									description: {
+										type: 'string',
+										example: 'abcdxyz',
+									},
+									brand: {
+										type: 'string',
+										example: 'Ford',
+									},
+									model: {
+										type: 'string',
+										example: 'X1',
+									},
+									location: {
+										type: 'object',
+										properties: {
+											facility: {
+												type: 'string',
+												example: 'CS1',
+											},
+											department: {
+												type: 'string',
+												example: 'H1',
+											},
+											room: {
+												type: 'string',
+												example: '202',
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+				responses: {
+					200: {
+						description: 'OK',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										data: {
+											type: 'object',
+											properties: {
+												acknowledged: {
+													type: 'boolean',
+													example: 'true',
+												},
+												modifiedCount: {
+													type: 'integer',
+													example: 1,
+												},
+												upsertedId: {
+													type: 'string',
+													example: 'abcdxyz',
+												},
+												upsertedCount: {
+													type: 'integer',
+													example: '2',
+												},
+												matchedCount: {
+													type: 'integer',
+													example: '2',
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+					403: {
+						description: 'The ID has already bean used',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										message: {
+											type: 'string',
+											example: 'The ID has already bean used',
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
 		'/v1/spso/printers/': {
 			get: {
 				tags: ['Spso'],
@@ -722,6 +832,7 @@ const swagger_doc = {
 				},
 			},
 		},
+
 		// '/v1/spso/printers-by-id/{printerId}': {
 		// 	get: {
 		// 		tags: ['Spso'],

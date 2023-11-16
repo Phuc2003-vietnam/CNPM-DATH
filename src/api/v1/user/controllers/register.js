@@ -14,7 +14,7 @@ const register = async(req, res, next) => {
 			department,
 			room,
 		} = req.body
-		const data=await new UserSerivce().register({
+		const data=await req.userService.register({
 			email,
 			password,
 			role,
