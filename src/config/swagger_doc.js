@@ -621,25 +621,42 @@ const swagger_doc = {
 										data: {
 											type: 'object',
 											properties: {
-												acknowledged: {
-													type: 'boolean',
-													example: 'true',
+												printerId: {
+													type: 'string',
+													example: 'H1202',
 												},
-												modifiedCount: {
-													type: 'integer',
+												status: {
+													type: 'boolean',
 													example: 1,
 												},
-												upsertedId: {
+												description: {
 													type: 'string',
 													example: 'abcdxyz',
 												},
-												upsertedCount: {
-													type: 'integer',
-													example: '2',
+												brand: {
+													type: 'string',
+													example: 'Ford',
 												},
-												matchedCount: {
-													type: 'integer',
-													example: '2',
+												model: {
+													type: 'string',
+													example: 'X1',
+												},
+												location: {
+													type: 'object',
+													properties: {
+														facility: {
+															type: 'string',
+															example: 'CS!',
+														},
+														department: {
+															type: 'string',
+															example: 'H1',
+														},
+														room: {
+															type: 'string',
+															example: '202',
+														},
+													},
 												},
 											},
 										},
@@ -648,8 +665,8 @@ const swagger_doc = {
 							},
 						},
 					},
-					403: {
-						description: 'The ID has already bean used',
+					404: {
+						description: 'The printerID is not found',
 						content: {
 							'application/json': {
 								schema: {
@@ -657,7 +674,7 @@ const swagger_doc = {
 									properties: {
 										message: {
 											type: 'string',
-											example: 'The ID has already bean used',
+											example: 'The printerID is not found',
 										},
 									},
 								},
