@@ -7,12 +7,12 @@ const studentAuth = async (req, res, next) => {
 	try {
 		const accessToken = req.headers.authorization.split(' ')[1]
 		var {user_id, session_id} = jwt.verify(accessToken, access_token_key)
-		const studentSerivce = new StudentService()
-		const userInfo = await studentSerivce.getUserInfo(accessToken)
+		const studentService = new StudentService()
+		const userInfo = await studentService.getUserInfo(accessToken)
 		if (userInfo.role != 'student') {
 			next({status: 401, message: 'Unauthorized'})
 		} else {
-			req.studentSerivce = studentSerivce
+			req.studentService = studentService
 			next()
 		}
 	} catch (err) {

@@ -1,13 +1,8 @@
-// Parent class
-class Animal {
-	sayName() {
-		console.log('My name is  animal')
-	}
+class UserService {
+	userInfo = 3 //later getUserInfo will assign to userInfo
+	
 }
-
-// Child class that extends the parent class
-const a = new Animal()
-a.sayHi = function () {
-	console.log('dcm')
+class StudentService extends UserService {
 }
-a.sayHi()
+const a = new UserService()
+console.log(a.userInfo)

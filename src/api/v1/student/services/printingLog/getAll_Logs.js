@@ -10,19 +10,11 @@ function total_pages(numVersion, pagesPerSheet, document){
 }
 
 async function getAll_Logs({
-    user_id
+    userInfo
 }){
-    const checkUser = await user.findById(user_id)
-    if(!checkUser) {
-        return Promise.reject({
-            status: 404,
-            message: "The requested user_id was not found in the database"
-          })
-    }
-
-    
+  
     //Get all printingLogs of a user
-    const logPromises = checkUser.printingLog.map(async (id) => {
+    const logPromises = userInfo.printingLog.map(async (id) => {
         if(!id.match(/^[0-9a-fA-F]{24}$/)) return null
 
         const checkLog = await printingLog.findById(id)

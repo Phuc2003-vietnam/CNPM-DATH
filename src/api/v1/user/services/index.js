@@ -5,6 +5,7 @@ import refreshAccessToken from './refreshAccessToken.js'
 import getUserInfo from './getUserInfo.js'
 
 class UserService {
+	userInfo=null;	//later getUserInfo will assign to userInfo
 	register = register
 	login = login
 	createToken = createToken
