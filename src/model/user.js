@@ -14,7 +14,7 @@ const user = new Schema(
 			department: {type: String, default: null, maxLength: 20},
 			room: {type: String, default: null, maxLength: 20},
 		},
-		printingLog: {type: [String], default: 'default'},
+		printingLog: {type: [String]},
 	},
 	{
 		timestamps: true,

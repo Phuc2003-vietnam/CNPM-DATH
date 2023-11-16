@@ -151,20 +151,20 @@ const swagger_doc = {
 							examples: {
 								Student: {
 									value: {
-										email: 'user1@example.com',
-										password: 'password1',
+										email: 'student1@gmail.com',
+										password: '1',
 										role: 'student',
 										firstName: 'fname',
 										lastName: 'lname',
-										balance: 10,
+										balance: 100,
 										mssv: '2144452',
 									},
 								},
 								Staff: {
 									value: {
-										email: 'user1@example.com',
-										password: 'password1',
-										role: 'student',
+										email: 'staff1@example.com',
+										password: '1',
+										role: 'staff',
 										firstName: 'fname',
 										lastName: 'lname',
 										location: {
@@ -174,9 +174,9 @@ const swagger_doc = {
 								},
 								Spso: {
 									value: {
-										email: 'user1@example.com',
-										password: 'password1',
-										role: 'student',
+										email: 'spso11@example.com',
+										password: '1',
+										role: 'spso',
 										firstName: 'fname',
 										lastName: 'lname',
 										location: {
