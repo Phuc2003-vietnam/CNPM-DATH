@@ -49,6 +49,7 @@ export const filterAll_Logs = async (req, res, next) => {
     try {
 
         const {
+            searchField,
             status, 
             sortDirection, 
             facility, 
@@ -59,6 +60,7 @@ export const filterAll_Logs = async (req, res, next) => {
         const {per_page, current_page} = req
 
         const data = await new StudentService().filterAll_Logs({
+            searchField,
             user_id,
             status, 
             sortDirection: parseInt(sortDirection), 
