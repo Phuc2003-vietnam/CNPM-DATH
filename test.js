@@ -1,8 +1,3 @@
-class UserService {
-	userInfo = 3 //later getUserInfo will assign to userInfo
-	
-}
-class StudentService extends UserService {
-}
-const a = new UserService()
-console.log(a.userInfo)
+var a = [1, 3, 4, 5]
+a.forEach((item) => item * 2)
+console.log(a)
