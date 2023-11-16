@@ -1,9 +1,7 @@
-import SpsoService from '../services/index.js'
-
-const addPrinter = async (req, res, next) => {
+const editPrinter = async (req, res, next) => {
 	try {
 		const {printerId, brand, model, location, status, description} = req.body
-		const data = await req.spsoService.addPrinter({
+		const data=await req.spsoService.editPrinter({
 			printerId,
 			brand,
 			model,
@@ -17,4 +15,4 @@ const addPrinter = async (req, res, next) => {
 	}
 }
 
-export default addPrinter
+export default editPrinter
