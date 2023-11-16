@@ -14,12 +14,14 @@ async function editPrinter({printerId, brand, model, location, status, descripti
 	if (description) {
 		query.description = description
 	}
-	const result = await printer.updateOne({ printerId},{ $set: query});
-	if(result?.matchedCount!=0)
-	{
+	const result = await printer.findOneAndUpdate(
+		{printerId},
+		{$set: query},
+		{returnDocument: 'after'}
+	)
+	if (result !== null) {
 		return result
-	}
-	else {
+	} else {
 		return Promise.reject({
 			status: 404,
 			message: 'The printerID is not found',

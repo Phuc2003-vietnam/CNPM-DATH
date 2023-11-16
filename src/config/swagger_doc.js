@@ -152,7 +152,6 @@ const swagger_doc = {
 									room: {
 										type: 'string',
 									},
-									
 								},
 							},
 							examples: {
@@ -165,8 +164,8 @@ const swagger_doc = {
 										lastName: 'lname',
 										balance: 100,
 										mssv: '2144452',
-										classes: "MT21KH12",
-										major: "Khoa hoc va ky thuat may tinh"
+										classes: 'MT21KH12',
+										major: 'Khoa hoc va ky thuat may tinh',
 									},
 								},
 								Staff: {
@@ -622,25 +621,42 @@ const swagger_doc = {
 										data: {
 											type: 'object',
 											properties: {
-												acknowledged: {
-													type: 'boolean',
-													example: 'true',
+												printerId: {
+													type: 'string',
+													example: 'H1202',
 												},
-												modifiedCount: {
-													type: 'integer',
+												status: {
+													type: 'boolean',
 													example: 1,
 												},
-												upsertedId: {
+												description: {
 													type: 'string',
 													example: 'abcdxyz',
 												},
-												upsertedCount: {
-													type: 'integer',
-													example: '2',
+												brand: {
+													type: 'string',
+													example: 'Ford',
 												},
-												matchedCount: {
-													type: 'integer',
-													example: '2',
+												model: {
+													type: 'string',
+													example: 'X1',
+												},
+												location: {
+													type: 'object',
+													properties: {
+														facility: {
+															type: 'string',
+															example: 'CS!',
+														},
+														department: {
+															type: 'string',
+															example: 'H1',
+														},
+														room: {
+															type: 'string',
+															example: '202',
+														},
+													},
 												},
 											},
 										},
@@ -649,8 +665,8 @@ const swagger_doc = {
 							},
 						},
 					},
-					403: {
-						description: 'The ID has already bean used',
+					404: {
+						description: 'The printerID is not found',
 						content: {
 							'application/json': {
 								schema: {
@@ -658,7 +674,7 @@ const swagger_doc = {
 									properties: {
 										message: {
 											type: 'string',
-											example: 'The ID has already bean used',
+											example: 'The printerID is not found',
 										},
 									},
 								},
@@ -836,6 +852,172 @@ const swagger_doc = {
 															},
 														},
 													},
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		'/v1/student/payment': {
+			post: {
+				summary: 'Confirm the payment to create paymemnt',
+				tags: ['Student'],
+				requestBody: {
+					required: true,
+					content: {
+						'application/json': {
+							schema: {
+								type: 'object',
+								properties: {
+									money: {
+										type: 'integer',
+										example: 10000,
+									},
+								},
+							},
+						},
+					},
+				},
+				responses: {
+					200: {
+						description: 'OK',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										data: {
+											type: 'object',
+											properties: {
+												stt: {
+													type: 'integer',
+													example: '1',
+												},
+												shortContent: {
+													type: 'string',
+													example: 'SSPS',
+												},
+												money: {
+													type: 'integer',
+													example: 10000,
+												},
+												paidMoney: {
+													type: 'integer',
+													example: 0,
+												},
+												leftMoney: {
+													type: 'integer',
+													example: 10000,
+												},
+												endDate: {
+													type: 'string',
+													example: '2023-11-16T17:08:00.000',
+												},
+												user_id: {
+													type: 'string',
+													example: '6555983eddab67d1ccad2cf9',
+												},
+												_id: {
+													type: 'string',
+													example: '65564ce62268f1d6ec017e91',
+												},
+												updated_at: {
+													type: 'string',
+													format: 'date-time',
+													example: '2023-07-23T16:47:49.000Z',
+												},
+												created_at: {
+													type: 'string',
+													format: 'date-time',
+													example: '2023-07-23T16:47:49.000Z',
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+					400: {
+						description: 'The money value is wrong <0',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										message: {
+											type: 'string',
+											example: 'Invalid money value. Please check whether it is larger than 0',
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		'/v1/student/payments/': {
+			get: {
+				tags: ['Student'],
+				summary: 'Get list of payments of a specific user',
+				responses: {
+					200: {
+						description: 'OK',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										data: {
+											type: 'object',
+											properties: {
+												stt: {
+													type: 'integer',
+													example: '1',
+												},
+												shortContent: {
+													type: 'string',
+													example: 'SSPS',
+												},
+												money: {
+													type: 'integer',
+													example: 10000,
+												},
+												paidMoney: {
+													type: 'integer',
+													example: 0,
+												},
+												leftMoney: {
+													type: 'integer',
+													example: 10000,
+												},
+												endDate: {
+													type: 'string',
+													example: '2023-11-16T17:08:00.000',
+												},
+												user_id: {
+													type: 'string',
+													example: '6555983eddab67d1ccad2cf9',
+												},
+												_id: {
+													type: 'string',
+													example: '65564ce62268f1d6ec017e91',
+												},
+												updated_at: {
+													type: 'string',
+													format: 'date-time',
+													example: '2023-07-23T16:47:49.000Z',
+												},
+												created_at: {
+													type: 'string',
+													format: 'date-time',
+													example: '2023-07-23T16:47:49.000Z',
 												},
 											},
 										},
