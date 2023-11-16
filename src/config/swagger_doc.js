@@ -361,7 +361,10 @@ const swagger_doc = {
 												printingLog: {
 													type: 'array',
 													items: 'string',
-													example: ["asduhui12h31xcxc","12dhuaschxd213"],
+													example: [
+														'asduhui12h31xcxc',
+														'12dhuaschxd213',
+													],
 												},
 												updated_at: {
 													type: 'string',
@@ -581,6 +584,13 @@ const swagger_doc = {
 						},
 					},
 					{
+						name: 'searchField',
+						in: 'query',
+						type: 'string',
+						description: 'Search printerID',
+						required: false,
+					},
+					{
 						name: 'per_page',
 						in: 'query',
 						type: 'integer',
@@ -654,7 +664,10 @@ const swagger_doc = {
 															printingLog: {
 																type: 'array',
 																items: 'string',
-																example: ["asduhui12h31xcxc","12dhuaschxd213"],
+																example: [
+																	'asduhui12h31xcxc',
+																	'12dhuaschxd213',
+																],
 															},
 															_id: {
 																type: 'string',
@@ -680,11 +693,12 @@ const swagger_doc = {
 																type: 'string',
 																example: 'XYZ',
 															},
-															activatedTime: {
-																type: 'string',
-																format: 'date-time',
-																example: '2023-07-23T16:47:49.000Z',
-															},
+															activatedTime:
+																{
+																	type: 'string',
+																	format: 'date-time',
+																	example: '2023-07-23T16:47:49.000Z',
+																},
 															updated_at: {
 																type: 'string',
 																format: 'date-time',
@@ -708,142 +722,146 @@ const swagger_doc = {
 				},
 			},
 		},
-		'/v1/spso/printers-by-id/{printerId}': {
-			get: {
-				tags: ['Spso'],
-				summary: 'Filter and return list of printers',
-				parameters: [
-					{
-						name: 'printerId',
-						in: 'path',
-						type: 'string',
-						description: 'ID of a printer',
-						required: true,
-					},
-					{
-						name: 'per_page',
-						in: 'query',
-						type: 'integer',
-						description: 'Number of items per page',
-						required: false,
-					},
-					{
-						name: 'current_page',
-						in: 'query',
-						type: 'integer',
-						description: 'Current page number',
-						required: false,
-					},
-				],
-				responses: {
-					200: {
-						description: 'OK',
-						content: {
-							'application/json': {
-								schema: {
-									type: 'object',
-									properties: {
-										data: {
-											type: 'object',
-											properties: {
-												per_page: {
-													type: 'integer',
-													example: 20,
-												},
-												current_page: {
-													type: 'integer',
-													example: 1,
-												},
-												total_pages: {
-													type: 'integer',
-													example: 1,
-												},
-												totalPrinter: {
-													type: 'integer',
-													example: 5,
-												},
-												printers: {
-													type: 'array',
-													items: {
-														type: 'object',
-														properties: {
-															location: {
-																type: 'object',
-																properties:
-																	{
-																		facility:
-																			{
-																				type: 'string',
-																				example: 'CS2',
-																			},
-																		department:
-																			{
-																				type: 'string',
-																				example: 'H1',
-																			},
-																		room: {
-																			type: 'string',
-																			example: '202',
-																		},
-																	},
-															},
-															printingLog: {
-																type: 'array',
-																items: 'string',
-																example: ["asduhui12h31xcxc","12dhuaschxd213"],
-															},
-															_id: {
-																type: 'string',
-																example: 'fa',
-															},
-															printerId: {
-																type: 'string',
-																example: 'H1101',
-															},
-															status: {
-																type: 'Number',
-																example: '1',
-															},
-															description: {
-																type: 'string',
-																example: 'This is a printer',
-															},
-															brand: {
-																type: 'string',
-																example: 'Ford',
-															},
-															model: {
-																type: 'string',
-																example: 'XYZ',
-															},
-															activatedTime: {
-																type: 'string',
-																format: 'date-time',
-																example: '2023-07-23T16:47:49.000Z',
-															},
-															updated_at: {
-																type: 'string',
-																format: 'date-time',
-																example: '2023-07-23T16:47:49.000Z',
-															},
-															created_at: {
-																type: 'string',
-																format: 'date-time',
-																example: '2023-07-23T16:47:49.000Z',
-															},
-														},
-													},
-												},
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-		},
+		// '/v1/spso/printers-by-id/{printerId}': {
+		// 	get: {
+		// 		tags: ['Spso'],
+		// 		summary: 'Filter and return list of printers',
+		// 		parameters: [
+		// 			{
+		// 				name: 'printerId',
+		// 				in: 'path',
+		// 				type: 'string',
+		// 				description: 'ID of a printer',
+		// 				required: true,
+		// 			},
+		// 			{
+		// 				name: 'per_page',
+		// 				in: 'query',
+		// 				type: 'integer',
+		// 				description: 'Number of items per page',
+		// 				required: false,
+		// 			},
+		// 			{
+		// 				name: 'current_page',
+		// 				in: 'query',
+		// 				type: 'integer',
+		// 				description: 'Current page number',
+		// 				required: false,
+		// 			},
+		// 		],
+		// 		responses: {
+		// 			200: {
+		// 				description: 'OK',
+		// 				content: {
+		// 					'application/json': {
+		// 						schema: {
+		// 							type: 'object',
+		// 							properties: {
+		// 								data: {
+		// 									type: 'object',
+		// 									properties: {
+		// 										per_page: {
+		// 											type: 'integer',
+		// 											example: 20,
+		// 										},
+		// 										current_page: {
+		// 											type: 'integer',
+		// 											example: 1,
+		// 										},
+		// 										total_pages: {
+		// 											type: 'integer',
+		// 											example: 1,
+		// 										},
+		// 										totalPrinter: {
+		// 											type: 'integer',
+		// 											example: 5,
+		// 										},
+		// 										printers: {
+		// 											type: 'array',
+		// 											items: {
+		// 												type: 'object',
+		// 												properties: {
+		// 													location: {
+		// 														type: 'object',
+		// 														properties:
+		// 															{
+		// 																facility:
+		// 																	{
+		// 																		type: 'string',
+		// 																		example: 'CS2',
+		// 																	},
+		// 																department:
+		// 																	{
+		// 																		type: 'string',
+		// 																		example: 'H1',
+		// 																	},
+		// 																room: {
+		// 																	type: 'string',
+		// 																	example: '202',
+		// 																},
+		// 															},
+		// 													},
+		// 													printingLog: {
+		// 														type: 'array',
+		// 														items: 'string',
+		// 														example: [
+		// 															'asduhui12h31xcxc',
+		// 															'12dhuaschxd213',
+		// 														],
+		// 													},
+		// 													_id: {
+		// 														type: 'string',
+		// 														example: 'fa',
+		// 													},
+		// 													printerId: {
+		// 														type: 'string',
+		// 														example: 'H1101',
+		// 													},
+		// 													status: {
+		// 														type: 'Number',
+		// 														example: '1',
+		// 													},
+		// 													description: {
+		// 														type: 'string',
+		// 														example: 'This is a printer',
+		// 													},
+		// 													brand: {
+		// 														type: 'string',
+		// 														example: 'Ford',
+		// 													},
+		// 													model: {
+		// 														type: 'string',
+		// 														example: 'XYZ',
+		// 													},
+		// 													activatedTime:
+		// 														{
+		// 															type: 'string',
+		// 															format: 'date-time',
+		// 															example: '2023-07-23T16:47:49.000Z',
+		// 														},
+		// 													updated_at: {
+		// 														type: 'string',
+		// 														format: 'date-time',
+		// 														example: '2023-07-23T16:47:49.000Z',
+		// 													},
+		// 													created_at: {
+		// 														type: 'string',
+		// 														format: 'date-time',
+		// 														example: '2023-07-23T16:47:49.000Z',
+		// 													},
+		// 												},
+		// 											},
+		// 										},
+		// 									},
+		// 								},
+		// 							},
+		// 						},
+		// 					},
+		// 				},
+		// 			},
+		// 		},
+		// 	},
+		// },
 	},
 }
 export default swagger_doc
