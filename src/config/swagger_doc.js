@@ -162,7 +162,7 @@ const swagger_doc = {
 								},
 								Staff: {
 									value: {
-										email: 'staff1@example.com',
+										email: 'staff1@gmail.com',
 										password: '1',
 										role: 'staff',
 										firstName: 'fname',
@@ -174,7 +174,7 @@ const swagger_doc = {
 								},
 								Spso: {
 									value: {
-										email: 'spso11@example.com',
+										email: 'spso1@gmail.com',
 										password: '1',
 										role: 'spso',
 										firstName: 'fname',

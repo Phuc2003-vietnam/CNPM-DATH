@@ -13,7 +13,7 @@ const printer = new Schema(
 			department: {type: String, default: 'H1', maxLength: 20},
 			room: {type: String, default: '202', maxLength: 20},
 		},
-		printingLog: {type: [String], default: 'default'},
+		printingLog: {type: [String]},
 	},
 	{
 		timestamps: true,
