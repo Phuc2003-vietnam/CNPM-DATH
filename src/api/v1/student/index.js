@@ -6,6 +6,5 @@ import paginationHandler from '#~/middleware/paginationHandler.js'
 const student_router = Router()
 student_router.post('/printing', studentAuth, confirm_print)
 student_router.get('/printingLogs', studentAuth, getAll_Logs)
-// student_router.get('/filterLogs', studentAuth, paginationHandler, filterAll_Logs)
-student_router.get('/filterLogs', paginationHandler, filterAll_Logs) //Miss Auth
+student_router.get('/filterLogs', studentAuth, paginationHandler, filterAll_Logs)
 export default student_router

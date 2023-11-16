@@ -56,12 +56,12 @@ export const filterAll_Logs = async (req, res, next) => {
             startDate, 
             endDate
         } = req.query
-        const {user_id} = req.body
+		const userInfo = req.studentService.userInfo
         const {per_page, current_page} = req
 
         const data = await new StudentService().filterAll_Logs({
             searchField,
-            user_id,
+            userInfo,
             status, 
             sortDirection: parseInt(sortDirection), 
             facility, 
