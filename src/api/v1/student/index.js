@@ -1,6 +1,6 @@
 import {Router} from 'express'
 import studentAuth from '#~/middleware/studentAuth.js'
-import {confirm_print, filterAll_Logs, getAll_Logs} from './controllers/printingLog.js'
+import {confirm_print, deleteSingle_Logs, filterAll_Logs, getAll_Logs} from './controllers/printingLog.js'
 import getPayment from './controllers/getPayment.js'
 import paymentHandler from './controllers/paymentHandler.js'
 import paginationHandler from '#~/middleware/paginationHandler.js'
@@ -11,4 +11,5 @@ student_router.post('/payment', studentAuth, paymentHandler)
 student_router.get('/printingLogs', studentAuth, getAll_Logs)
 student_router.get('/filterLogs', studentAuth, paginationHandler, filterAll_Logs)
 student_router.get('/payments', studentAuth, getPayment)
+student_router.delete('/cancelLog', studentAuth, deleteSingle_Logs)
 export default student_router

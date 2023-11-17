@@ -56,6 +56,8 @@ export const filterAll_Logs = async (req, res, next) => {
             startDate, 
             endDate
         } = req.query
+		
+        const user_id = req.studentService.userInfo._id //Update for ticket-38
 		const userInfo = req.studentService.userInfo
         const {per_page, current_page} = req
 
@@ -75,5 +77,20 @@ export const filterAll_Logs = async (req, res, next) => {
     } catch (err) {
         next(err)
     }
+}
+
+export const deleteSingle_Logs = async (req, res, next) => {
+	try {
+		const {printingLogId} = req.query
+		const userInfo = req.studentService.userInfo
+
+		const data = await StudentService().deleteSingle_Logs({
+			printingLogId,
+			userInfo
+		})
+		res.status(200).json({data})
+	} catch (err) {
+		next(err)
+	}
 }
 
