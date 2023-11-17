@@ -6,6 +6,7 @@ import getAll_Logs from './printingLog/getAll_Logs.js'
 import getSingle_Logs from './printingLog/getSingle_Logs.js'
 import paymentHandler from './paymentHandler.js'
 import getPayment from './getPayment.js'
+import BKpayHandler from './BKpayHandler.js'
 
 class StudentService extends UserService {
     confirm_print=confirm_print
@@ -15,5 +16,6 @@ class StudentService extends UserService {
     getSingle_Logs=getSingle_Logs
     paymentHandler=paymentHandler
     getPayment=getPayment
+    BKpayHandler=BKpayHandler
 }
 export default StudentService

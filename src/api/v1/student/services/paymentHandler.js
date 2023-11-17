@@ -43,6 +43,8 @@ async function paymentHandler({money, user_id}) {
 		leftMoney: money,
 		endDate: createEndDate(),
 		user_id,
+		paidDate:'',
+		isPaid:false
 	})
 	//add payment record id to student
 	await user.findOneAndUpdate(
