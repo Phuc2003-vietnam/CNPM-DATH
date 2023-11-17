@@ -14,6 +14,8 @@ const printer = new Schema(
 			room: {type: String, default: '202', maxLength: 20},
 		},
 		printingLog: {type: [String]},
+		printingJob: {type: [String]},
+		printingQueue: {type: [String]},
 	},
 	{
 		timestamps: true,
