@@ -13,6 +13,8 @@ async function register({
 	facility,
 	department,
 	room,
+	classes,
+	major,
 }) {
 	const userRecord = await user.findOne({email})
 	if (userRecord) {
@@ -33,7 +35,9 @@ async function register({
 				firstName,
 				lastName,
 				balance,
-				role
+				role,
+				classes,
+				major
 			})
 		} else if (role == 'spso') {
 			return await user.create({

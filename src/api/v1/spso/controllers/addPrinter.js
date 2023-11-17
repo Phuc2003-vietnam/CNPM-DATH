@@ -3,7 +3,7 @@ import SpsoService from '../services/index.js'
 const addPrinter = async (req, res, next) => {
 	try {
 		const {printerId, brand, model, location, status, description} = req.body
-		const data = await new SpsoService().addPrinter({
+		const data = await req.spsoService.addPrinter({
 			printerId,
 			brand,
 			model,

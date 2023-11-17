@@ -4,7 +4,7 @@ import { total_pages } from './getAll_Logs.js'
 
 async function filterAll_Logs({
     searchField,
-    user_id,
+    userInfo,
     status, 
     sortDirection, 
     facility, 
@@ -13,21 +13,13 @@ async function filterAll_Logs({
     per_page,
     current_page,
 }){
-    const checkUser = await user.findById(user_id)
-    if(!checkUser) {
-        return Promise.reject({
-            status: 404,
-            message: `The requested user_id was not found in the database ${user_id}`,
-          })
-    }
-
     //set defaults sort
     if (sortDirection != 1 && sortDirection != -1) {
 		sortDirection = -1
 	}
 
     // Create a base query for user_id
-    let query = { user_id: user_id }
+    let query = { user_id: userInfo._id.toString() }
     if (status) { query.status = status }
     if (searchField) {query.printerId = {$regex: searchField}} //Search for printerId
     if (facility && (facility === 'CS1' || facility === 'CS2')) {

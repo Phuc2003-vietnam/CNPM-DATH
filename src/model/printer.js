@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 const printer = new Schema(
 	{
-		printerId: {type: String, default: 'default', maxLength: 50},
+		printerId: {type: String, default: 'default', maxLength: 50,unique: true},
 		status: {type: Number, default: 'default'},
 		description: {type: String, default: 'this is a printer', maxLength: 100},
 		activatedTime: {type: Date, default: Date.now},
@@ -13,7 +13,7 @@ const printer = new Schema(
 			department: {type: String, default: 'H1', maxLength: 20},
 			room: {type: String, default: '202', maxLength: 20},
 		},
-		printingLog: {type: [String], default: 'default'},
+		printingLog: {type: [String]},
 	},
 	{
 		timestamps: true,

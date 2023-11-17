@@ -1,4 +1,4 @@
-import StudentService from '#~/api/v1/user/services/index.js'
+import StudentService from '#~/api/v1/student/services/index.js'
 import jwt from 'jsonwebtoken'
 import {} from 'dotenv/config'
 const access_token_key = process.env.ACCESS_TOKEN_KEY
