@@ -57,7 +57,6 @@ export const filterAll_Logs = async (req, res, next) => {
             endDate
         } = req.query
 		
-        const user_id = req.studentService.userInfo._id //Update for ticket-38
 		const userInfo = req.studentService.userInfo
         const {per_page, current_page} = req
 
