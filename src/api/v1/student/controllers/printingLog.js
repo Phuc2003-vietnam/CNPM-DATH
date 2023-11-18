@@ -4,22 +4,13 @@ import StudentService from '../services/index.js'
 export const confirm_print = async (req, res, next) => {
 	try {
 		const {
-			paperSize,
-			numVersion,
-			colorOption,
-			landScapeOption,
-			pagesPerSheet,
-			document, //fix document to know the size of pages
+			documents, //fix document to know the size of pages
 			printerId,
 		} = req.body
+		
 		const userInfo = req.studentService.userInfo
 		const data = await new StudentService().confirm_print({
-			paperSize,
-			numVersion,
-			colorOption,
-			landScapeOption,
-			pagesPerSheet,
-			document,
+			documents,
 			userInfo,
 			printerId,
 		})
