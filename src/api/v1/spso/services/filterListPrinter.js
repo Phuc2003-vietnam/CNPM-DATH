@@ -43,30 +43,41 @@ async function filterListPrinter({
 		var totalPrinter = (await printer.find()).length
 		var activatedPrinter = (await printer.find({status: 1})).length
 	}
+
+
 	//ADD queue list : GET the printing log ID in each Printer => get the user ID from printing log => combine them
-	async function getprintingQueue(printer) {
+	async function getprintingQueue(option) {
+
 		const printingQueue = await Promise.all(
-			printer.printingLog.map(async (printingLogId) => {
+
+			option.map(async (printingLogId) => {
+
 				if (printingLogId != 'default') {
+
 					var printingLogObj = await printingLog
 						.findById(printingLogId)
 						.select('document.title status numVersion user_id -_id')
 					var userObj = await user
 						.findById(printingLogObj.user_id)
 						.select('firstName lastName mssv -_id')
-						const userobj=userObj.toObject()
+						// const userobj=userObj.toObject()
+
 					return {...userObj.toObject(), ...printingLogObj.toObject()} //remember to use toObject() otherwise it looks terrible
-				} else {
-					return {}
-				}
+				} 
+				else { return {}}
 			})
 		)
 		return printingQueue
 	}
+
+	//Apply function
 	for (var i = 0; i < printers.length; i++) {
+
 		const printerObject = printers[i].toObject()
-		printerObject.printingQueue = await getprintingQueue(printerObject)
+		printerObject.printingQueue = await getprintingQueue(printerObject.printingQueue) //Join PrintingQueue
+		printerObject.printingJob = await getprintingQueue(printerObject.printingJob) //Join PrintingJob
 		printers[i]=printerObject
+
 	}
 	
 	var data = {
