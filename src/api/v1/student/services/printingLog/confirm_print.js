@@ -3,7 +3,7 @@ import user from '#~/model/user.js'
 import printer from '#~/model/printer.js'
 import configuration from '#~/model/configuration.js'
 
-function balance_helper(paperSize, numVersion, pagesPerSheet, document) {
+export function balance_helper(paperSize, numVersion, pagesPerSheet, document) {
 	let pay_amount = 0
 	let flag = document.pages % pagesPerSheet === 0 ? 0 : 1
 	pay_amount = (Math.floor(document.pages / pagesPerSheet) + flag) * numVersion //default A4

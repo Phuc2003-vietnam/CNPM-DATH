@@ -74,7 +74,7 @@ export const deleteSingle_Logs = async (req, res, next) => {
 		const {printingLogId} = req.query
 		const userInfo = req.studentService.userInfo
 
-		const data = await StudentService().deleteSingle_Logs({
+		const data = await new StudentService().deleteSingle_Logs({
 			printingLogId,
 			userInfo
 		})
