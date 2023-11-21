@@ -11,8 +11,8 @@ const configExpressApp = async (app) => {
 	db.connect()
 	app.set('port', port)
 	app.use(cors())
-	app.use(express.urlencoded({extended: true}))
 	app.use(express.json())
+	app.use(express.urlencoded({extended: true}))
 	app.use(router)
 	app.use((error, req, res, next) => {
 		console.log(error.message)

@@ -48,7 +48,6 @@ async function paymentHandler({money, user_id}) {
 	await user.findOneAndUpdate(
 		{_id: user_id},
 		{$push: {payment: createdPayment._id}},
-		{returnDocument: 'after'}
 	)
 	return createdPayment
 }
