@@ -4,7 +4,6 @@ const printingLog = new Schema(
   {
     status: { type: String, default: "default"},
     finishDate: { type: Date, default: null},
-    
     paperSize: { type: String, default: "default", },
     numVersion: { type: Number, default: 0  },
     colorOption: {type: Boolean, default: false},

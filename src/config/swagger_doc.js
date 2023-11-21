@@ -1029,7 +1029,188 @@ const swagger_doc = {
 				},
 			},
 		},
-
+		'/v1/student/printing': {
+			post: {
+				summary: "Confirm printing button to create 'QUEUED printing request' to printer and assign printingLog ID to student and printer for query",
+				tags: ['Student'],
+				requestBody: {
+					required: true,
+					content: {
+						'application/json': {
+							schema: {
+								type: 'object',
+								properties: {
+									documents: {
+										type: 'array',
+										items:{
+											type: 'object',
+											properties:{
+												paperSize:{
+													
+												}
+											}
+										}
+									},
+									printers: {
+										type: 'array',
+										items: {
+											type: 'object',
+											properties: {
+												location: {
+													type: 'object',
+													properties:
+														{
+															facility:
+																{
+																	type: 'string',
+																	example: 'CS2',
+																},
+															department:
+																{
+																	type: 'string',
+																	example: 'H1',
+																},
+															room: {
+																type: 'string',
+																example: '202',
+															},
+														},
+												},
+												printingLog: {
+													type: 'array',
+													items: 'string',
+													example: [
+														'asduhui12h31xcxc',
+														'12dhuaschxd213',
+													],
+												},
+												_id: {
+													type: 'string',
+													example: 'fa',
+												},
+												printerId: {
+													type: 'string',
+													example: 'H1101',
+												},
+												status: {
+													type: 'Number',
+													example: '1',
+												},
+												description: {
+													type: 'string',
+													example: 'This is a printer',
+												},
+												brand: {
+													type: 'string',
+													example: 'Ford',
+												},
+												model: {
+													type: 'string',
+													example: 'XYZ',
+												},
+												activatedTime:
+													{
+														type: 'string',
+														format: 'date-time',
+														example: '2023-07-23T16:47:49.000Z',
+													},
+												updated_at: {
+													type: 'string',
+													format: 'date-time',
+													example: '2023-07-23T16:47:49.000Z',
+												},
+												created_at: {
+													type: 'string',
+													format: 'date-time',
+													example: '2023-07-23T16:47:49.000Z',
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+				responses: {
+					200: {
+						description: 'OK',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										data: {
+											type: 'object',
+											properties: {
+												stt: {
+													type: 'integer',
+													example: '1',
+												},
+												shortContent: {
+													type: 'string',
+													example: 'SSPS',
+												},
+												money: {
+													type: 'integer',
+													example: 10000,
+												},
+												paidMoney: {
+													type: 'integer',
+													example: 0,
+												},
+												leftMoney: {
+													type: 'integer',
+													example: 10000,
+												},
+												endDate: {
+													type: 'string',
+													example: '2023-11-16T17:08:00.000',
+												},
+												user_id: {
+													type: 'string',
+													example: '6555983eddab67d1ccad2cf9',
+												},
+												_id: {
+													type: 'string',
+													example: '65564ce62268f1d6ec017e91',
+												},
+												updated_at: {
+													type: 'string',
+													format: 'date-time',
+													example: '2023-07-23T16:47:49.000Z',
+												},
+												created_at: {
+													type: 'string',
+													format: 'date-time',
+													example: '2023-07-23T16:47:49.000Z',
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+					400: {
+						description: 'The money value is wrong <0',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										message: {
+											type: 'string',
+											example: 'Invalid money value. Please check whether it is larger than 0',
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
 		// '/v1/spso/printers-by-id/{printerId}': {
 		// 	get: {
 		// 		tags: ['Spso'],

@@ -17,7 +17,6 @@ async function filterAll_Logs({
     if (sortDirection != 1 && sortDirection != -1) {
 		sortDirection = -1
 	}
-
     // Create a base query for user_id
     let query = { user_id: userInfo._id.toString() }
     if (status) { query.status = status }
