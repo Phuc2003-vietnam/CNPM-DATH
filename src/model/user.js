@@ -17,7 +17,8 @@ const user = new Schema(
 			room: {type: String, default: null, maxLength: 20},
 		},
 		printingLog: {type: [String]},
-		payment:{type: [String]}
+		payment:{type: [String]},
+		printer:{type:[String]}
 	},
 	{
 		timestamps: true,
