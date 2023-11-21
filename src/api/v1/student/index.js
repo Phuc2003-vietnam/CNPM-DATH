@@ -3,10 +3,14 @@ import studentAuth from '#~/middleware/studentAuth.js'
 import {confirm_print, deleteSingle_Logs, filterAll_Logs, getAll_Logs} from './controllers/printingLog.js'
 import getPayment from './controllers/getPayment.js'
 import paymentHandler from './controllers/paymentHandler.js'
+import BKpayHandler from './controllers/BKpayHandler.js'
 import paginationHandler from '#~/middleware/paginationHandler.js'
 import {uploadMultiple} from '#~/config/upload.js'
 
 const student_router = Router()
+student_router.post('/printing', studentAuth, confirm_print)
+student_router.post('/confirm-payment', studentAuth, paymentHandler)
+student_router.post('/BKpayment', studentAuth, BKpayHandler)
 student_router.post('/printing', studentAuth, uploadMultiple,confirm_print)
 student_router.post('/payment', studentAuth, paymentHandler)
 student_router.get('/printingLogs', studentAuth, getAll_Logs)

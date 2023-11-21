@@ -9,6 +9,7 @@ const payment = new Schema(
 		paidDate: {type: Date},
 		leftMoney: {type: Number, default: 0},
 		endDate: {type: Date, default: Date.now},
+		isPaid: {type: Boolean,default:false},
 		//Foreign Key
 		user_id: {type: String},
 	},

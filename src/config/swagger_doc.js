@@ -863,7 +863,7 @@ const swagger_doc = {
 				},
 			},
 		},
-		'/v1/student/payment': {
+		'/v1/student/confirm-payment': {
 			post: {
 				summary: 'Confirm the payment to create paymemnt',
 				tags: ['Student'],
