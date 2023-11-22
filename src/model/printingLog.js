@@ -11,7 +11,7 @@ const printingLog = new Schema(
     pagesPerSheet: {type: Number, default: 1},
 
     document: {
-      title:  { type: String, default: "default", maxLength: 20}, 
+      title:  { type: String, default: "default", maxLength: 100}, 
       pages:  { type: Number, default: 0}, 
       fileType:  { type: String, default: "default", maxLength: 20}, 
     },

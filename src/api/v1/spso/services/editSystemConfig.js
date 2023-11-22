@@ -11,15 +11,21 @@ async function editSystemConfig({
 	var query = {}
 	var result = {}
 	if (!isDefault) {
-		if (currentBalance) {
-			if(currentBalance<=0)
-			{
-				return Promise.reject({
-					status: 400,
-					message: 'currentBalance value is < 0',
-				})
-			}
+		if (!currentBalance || currentBalance <= 0) {
+			return Promise.reject({
+				status: 400,
+				message: 'currentBalance value is < 0',
+			})
+		} else {
 			query.currentBalance = currentBalance
+		}
+		if (!currentA4Price || currentA4Price <= 0) {
+			return Promise.reject({
+				status: 400,
+				message: 'currentA4Price value is < 0',
+			})
+		} else {
+			query.currentA4Price = currentA4Price
 		}
 		if (startDate1) {
 			query.startDate1 = new Date(startDate1)
@@ -30,20 +36,16 @@ async function editSystemConfig({
 		if (currentFileType) {
 			query.currentFileType = currentFileType
 		}
-		if (currentA4Price) {
-			query.currentA4Price = currentA4Price
-			return Promise.reject({
-				status: 400,
-				message: 'currentA4Price value is < 0',
-			})
-		}
+
 		result = await configuration.findOneAndUpdate(
 			{},
 			{$set: query},
 			{returnDocument: 'after'}
 		)
 	} else {
-		const {defaultA4Price,defaultBalance,defaultFileType}= await configuration.findOne({}).select("defaultA4Price defaultBalance defaultFileType")
+		const {defaultA4Price, defaultBalance, defaultFileType} = await configuration
+			.findOne({})
+			.select('defaultA4Price defaultBalance defaultFileType')
 		result = await configuration.findOneAndUpdate(
 			{},
 			{
