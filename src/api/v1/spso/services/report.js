@@ -44,6 +44,13 @@ async function report({
 		sortDirection = -1
 	}
 
+    if(!year){
+        return Promise.reject({
+            status: 503,
+            message: "year query is required!"
+        })
+    }
+
 	let log_status = 'Completed' //-----------------------------------> True value is completed
 
 	// Step 1: List of Printers with Additional Information
@@ -136,17 +143,21 @@ async function report({
     //Filter again
     let final_printers = []
     for(let singlePrinter of all_printers){
-        for (let month of singlePrinter.monthlyData) {
+       
+        let monthly_A3 = singlePrinter.monthlyData.reduce((total, entry) => total + entry.totalA3Pages, 0);
+        let monthly_A4 = singlePrinter.monthlyData.reduce((total, entry) => total + entry.totalA4Pages, 0);
+        let monthly_printed = singlePrinter.monthlyData.reduce((total, entry) => total + entry.printed, 0);
 
-            final_printers.push({
-                date: month.monthYear,
-                printerId: month.printerId,
-                location: singlePrinter.location,
-                printed: month.printed,
-                totalA3Pages: month.totalA3Pages,
-                totalA4Pages: month.totalA4Pages
-            })
-        }
+        if(singlePrinter.monthlyData.length <=0) continue
+
+        final_printers.push({
+            date: month ? `${month}-${year}` : year,
+            printerId: singlePrinter.printerId,
+            location: singlePrinter.location,
+            printed: monthly_printed,
+            totalA3Pages: monthly_A3,
+            totalA4Pages: monthly_A4
+        })
     }
 
     //sort
