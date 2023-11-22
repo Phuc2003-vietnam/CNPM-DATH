@@ -1029,6 +1029,109 @@ const swagger_doc = {
 				},
 			},
 		},
+		'/v1/student/BKpayment': {
+			post: {
+				summary: 'Confirm the payment to create paymemnt',
+				tags: ['Student'],
+				requestBody: {
+					required: true,
+					content: {
+						'application/json': {
+							schema: {
+								type: 'object',
+								properties: {
+									payment_id: {
+										type: 'string',
+										example: "655cc32d45c832b7972257a5",
+									},
+								},
+							},
+						},
+					},
+				},
+				responses: {
+					200: {
+						description: 'OK',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										data: {
+											type: 'object',
+											properties: {
+												_id: {
+													type: 'string',
+													example: '655cc32d45c832b7972257a5',
+												},
+												stt:{
+													type: 'integer',
+													example: 1
+												},
+												shortContent: {
+													type: 'string',
+													example: 'SSPS',
+												},
+												money: {
+													type: 'integer',
+													example: 10000,
+												},
+												paidMoney: {
+													type: 'integer',
+													example: 10000,
+												},
+												leftMoney: {
+													type: 'integer',
+													example: 0,
+												},
+												isPaid:{
+													type: 'boolean',
+													example: true,
+												},
+												endDate: {
+													type: 'string',
+													example: '2023-11-16T17:08:00.000',
+												},
+												user_id: {
+													type: 'string',
+													example: '6555983eddab67d1ccad2cf9',
+												},
+												updated_at: {
+													type: 'string',
+													format: 'date-time',
+													example: '2023-07-23T16:47:49.000Z',
+												},
+												created_at: {
+													type: 'string',
+													format: 'date-time',
+													example: '2023-07-23T16:47:49.000Z',
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+					400: {
+						description: 'The money value is wrong <0',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										message: {
+											type: 'string',
+											example: 'Invalid money value. Please check whether it is larger than 0',
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
 		'/v1/student/printing': {
 			post: {
 				summary: "Confirm printing button to create 'QUEUED printing request' to printer and assign printingLog ID to student and printer for query",

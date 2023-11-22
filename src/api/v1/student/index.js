@@ -8,11 +8,9 @@ import paginationHandler from '#~/middleware/paginationHandler.js'
 import {uploadMultiple} from '#~/config/upload.js'
 
 const student_router = Router()
-student_router.post('/printing', studentAuth, confirm_print)
 student_router.post('/confirm-payment', studentAuth, paymentHandler)
 student_router.post('/BKpayment', studentAuth, BKpayHandler)
 student_router.post('/printing', studentAuth, uploadMultiple,confirm_print)
-student_router.post('/payment', studentAuth, paymentHandler)
 student_router.get('/printingLogs', studentAuth, getAll_Logs)
 student_router.get('/filterLogs', studentAuth, paginationHandler, filterAll_Logs)
 student_router.get('/payments', studentAuth, getPayment)
