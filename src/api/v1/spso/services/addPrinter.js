@@ -21,7 +21,7 @@ async function addPrinter({printerId, brand, model, location, status, descriptio
 		//push the printer ID to relevant staff printer list
 		await user.updateMany(
 			{location, role: 'staff'},
-			{$push: {printer: printerRecord._id}}
+			{$push: {printer: printerRecord.printerId}}
 		)
 		return printerRecord
 	} else {
