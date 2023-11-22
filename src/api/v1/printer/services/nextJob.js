@@ -55,14 +55,21 @@ async function nextJob({
                     
                 }
             )
+
+            result.move = {
+                id: headJobId,
+                status_before: "InProgress",
+                status_now: "Completed"
+            }
+            return result
         }
 
-        result.move = {
+        result.moveJob = {
             id: headJobId,
             status_before: "InProgress",
             status_now: "Completed"
         }
-        return result
+        // return result
 
     }
 
@@ -86,14 +93,14 @@ async function nextJob({
             }
         )
 
-        result.move = {
+        result.moveQueue = {
             id: headQueueId,
             status_before: "Queued",
             status_now: "InProgress"
         }
     }
     
-    if(!result.move){
+    if(!result.moveJob && !result.moveQueue){
         return Promise.reject({
             status: 422,
             message: `The printer with printerId: [${printerId}] has nothing to do!`

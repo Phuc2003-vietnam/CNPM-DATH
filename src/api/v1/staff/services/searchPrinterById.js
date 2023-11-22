@@ -1,17 +1,18 @@
 import printer from '#~/model/printer.js'
 import printingLog from '#~/model/printingLog.js'
 import user from '#~/model/user.js'
+import configuration from '#~/model/configuration.js'
 
 async function filterListPrinter({per_page, current_page, searchField, printerList}) {
-	//pre process data 
-	var query={}
+	//pre process data
+	var query = {}
 	var printers = await printer
-		.find({printerId: {$in: printerList,$regex: searchField }})
+		.find({printerId: {$in: printerList, $regex: searchField}})
 		.skip((current_page - 1) * per_page)
 		.limit(per_page)
-	var totalPrinterRecord=await printer.find({
+	var totalPrinterRecord = await printer.find({
 		printerId: {$in: printerList},
-	}) 	
+	})
 	var activatedPrinterRecord = await printer.find({
 		printerId: {$in: printerList},
 		status: 1,
@@ -44,11 +45,13 @@ async function filterListPrinter({per_page, current_page, searchField, printerLi
 	for (var i = 0; i < printers.length; i++) {
 		const printerObject = printers[i].toObject()
 		printerObject.printingLog = await getprintingQueue(printerObject.printingLog)
-		printerObject.printingQueue = await getprintingQueue(printerObject.printingQueue) //Join PrintingQueue
+		printerObject.printingQueue = await getprintingQueue(
+			printerObject.printingQueue
+		) //Join PrintingQueue
 		printerObject.printingJob = await getprintingQueue(printerObject.printingJob) //Join PrintingJob
-		printers[i]=printerObject
+		printers[i] = printerObject
 	}
-
+	const {currentFileType}=await configuration.findOne({}).select('currentFileType -_id')
 	var data = {
 		per_page,
 		current_page,
@@ -56,6 +59,7 @@ async function filterListPrinter({per_page, current_page, searchField, printerLi
 		total_pages: Math.ceil(totalPrinter / per_page),
 		activatedPrinter,
 		printers,
+		currentFileType
 	}
 	return data
 }
