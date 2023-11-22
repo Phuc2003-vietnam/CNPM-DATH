@@ -863,6 +863,200 @@ const swagger_doc = {
 				},
 			},
 		},
+		'/v1/spso/systemConfig': {
+			put: {
+				summary: 'Edit the system config',
+				tags: ['Spso'],
+				requestBody: {
+					required: true,
+					content: {
+						'application/json': {
+							schema: {
+								type: 'object',
+								properties: {
+									currentBalance: {
+										type: 'integer',
+										example: 1000,
+										description: "Free pages for student each semester"
+									},
+									startDate1: {
+										type: 'string',
+										example: "2023-01-05",
+									},
+									startDate2: {
+										type: 'string',
+										example: "2023-07-05",
+									},
+									currentA4Price: {
+										type: 'integer',
+										example: 500,
+									},
+									currentFileType: {
+										type: 'array',
+										items:{
+											type: 'string',
+											example: ['pdf','docx']
+										}
+									},
+									isDefault: {
+										type: 'boolean',
+										example: false,
+									},
+								},
+							},
+						},
+					},
+				},
+				responses: {
+					200: {
+						description: 'OK',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										data: {
+											type: 'object',
+											properties: {
+												_id: {
+													type: 'string',
+													example: '654d7dc844facac258d85224',
+												},
+												startDate1: {
+													type: 'string',
+													example: "2022-01-03T00:00:00.000Z",
+												},
+												startDate2: {
+													type: 'string',
+													example: '2022-07-08T00:00:00.000Z',
+												},
+												defaultBalance: {
+													type: 'integer',
+													example: 1000,
+												},
+												currentBalance: {
+													type: 'integer',
+													example: 1000,
+												},
+												currentA4Price: {
+													type: 'integer',
+													example: 'Ford',
+												},
+												defaulttA4Price: {
+													type: 'integer',
+													example: 'Ford',
+												},
+												currentFileType: {
+													type: 'string',
+													example: ['pdf','docx'],
+												},
+												defaultFileType: {
+													type: 'string',
+													example: ['pdf'],
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+					400: {
+						description: 'The value is < 0',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										message: {
+											type: 'string',
+											example: 'currentA4Price value is < 0 or currentBalance value is < 0',
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		'/v1/spso//systemConfig': {
+			get: {
+				summary: 'Get the system config',
+				tags: ['Spso'],
+				responses: {
+					200: {
+						description: 'OK',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										data: {
+											type: 'object',
+											properties: {
+												_id: {
+													type: 'string',
+													example: '654d7dc844facac258d85224',
+												},
+												startDate1: {
+													type: 'string',
+													example: "2022-01-03T00:00:00.000Z",
+												},
+												startDate2: {
+													type: 'string',
+													example: '2022-07-08T00:00:00.000Z',
+												},
+												defaultBalance: {
+													type: 'integer',
+													example: 1000,
+												},
+												currentBalance: {
+													type: 'integer',
+													example: 1000,
+												},
+												currentA4Price: {
+													type: 'integer',
+													example: 'Ford',
+												},
+												defaulttA4Price: {
+													type: 'integer',
+													example: 'Ford',
+												},
+												currentFileType: {
+													type: 'string',
+													example: ['pdf','docx'],
+												},
+												defaultFileType: {
+													type: 'string',
+													example: ['pdf'],
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+					400: {
+						description: 'The value is < 0',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										message: {
+											type: 'string',
+											example: 'currentA4Price value is < 0 or currentBalance value is < 0',
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
 		'/v1/student/confirm-payment': {
 			post: {
 				summary: 'Confirm the payment to create paymemnt',
@@ -1140,6 +1334,7 @@ const swagger_doc = {
 				},
 			},
 		},
+		
 		'/v1/student/printing': {
 			post: {
 				summary: "Confirm printing button to create 'QUEUED printing request' to printer and assign printingLog ID to student and printer for query",
