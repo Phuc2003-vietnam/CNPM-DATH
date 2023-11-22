@@ -177,6 +177,8 @@ const swagger_doc = {
 										lastName: 'lname',
 										location: {
 											facility: 'CS1',
+											department: 'H3',
+											room: '202',
 										},
 									},
 								},
@@ -189,8 +191,6 @@ const swagger_doc = {
 										lastName: 'lname',
 										location: {
 											facility: 'CS1',
-											department: 'H3',
-											room: '202',
 										},
 									},
 								},
@@ -906,6 +906,10 @@ const swagger_doc = {
 													type: 'integer',
 													example: 10000,
 												},
+												isPaid:{
+													type: 'boolean',
+													example: false,
+												},
 												paidMoney: {
 													type: 'integer',
 													example: 0,
@@ -996,6 +1000,10 @@ const swagger_doc = {
 												leftMoney: {
 													type: 'integer',
 													example: 10000,
+												},
+												isPaid:{
+													type: 'boolean',
+													example: false
 												},
 												endDate: {
 													type: 'string',
