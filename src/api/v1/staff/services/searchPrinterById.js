@@ -42,11 +42,10 @@ async function filterListPrinter({per_page, current_page, searchField, printerLi
 	//Apply function
 	for (var i = 0; i < printers.length; i++) {
 		const printerObject = printers[i].toObject()
-		printerObject.printingQueue = await getprintingQueue(
-			printerObject.printingQueue
-		) //Join PrintingQueue
+		printerObject.printingLog = await getprintingQueue(printerObject.printingLog)
+		printerObject.printingQueue = await getprintingQueue(printerObject.printingQueue) //Join PrintingQueue
 		printerObject.printingJob = await getprintingQueue(printerObject.printingJob) //Join PrintingJob
-		printers[i] = printerObject
+		printers[i]=printerObject
 	}
 
 	var data = {

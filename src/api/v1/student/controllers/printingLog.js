@@ -71,7 +71,7 @@ export const filterAll_Logs = async (req, res, next) => {
 
 export const deleteSingle_Logs = async (req, res, next) => {
 	try {
-		const {printingLogId} = req.query
+		const {printingLogId} = req.body
 		const userInfo = req.studentService.userInfo
 
 		const data = await new StudentService().deleteSingle_Logs({
