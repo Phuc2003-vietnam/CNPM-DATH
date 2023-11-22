@@ -4,8 +4,9 @@ import user from '#~/model/user.js'
 
 async function filterListPrinter({per_page, current_page, searchField, printerList}) {
 	//pre process data 
+	var query={}
 	var printers = await printer
-		.find({printerId: {$in: printerList}})
+		.find({printerId: {$in: printerList,$regex: searchField }})
 		.skip((current_page - 1) * per_page)
 		.limit(per_page)
 	var totalPrinterRecord=await printer.find({
