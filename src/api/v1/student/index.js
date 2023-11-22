@@ -6,6 +6,7 @@ import paymentHandler from './controllers/paymentHandler.js'
 import BKpayHandler from './controllers/BKpayHandler.js'
 import paginationHandler from '#~/middleware/paginationHandler.js'
 import {uploadMultiple} from '#~/config/upload.js'
+import getPrinters from './controllers/getPrinters.js'
 
 const student_router = Router()
 student_router.post('/confirm-payment', studentAuth, paymentHandler)
@@ -15,4 +16,5 @@ student_router.get('/printingLogs', studentAuth, getAll_Logs)
 student_router.get('/filterLogs', studentAuth, paginationHandler, filterAll_Logs)
 student_router.get('/payments', studentAuth, getPayment)
 student_router.delete('/cancelLog', studentAuth, deleteSingle_Logs)
+student_router.get('/printers', studentAuth, paginationHandler, getPrinters)
 export default student_router
