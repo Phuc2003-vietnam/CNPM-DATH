@@ -6,13 +6,13 @@ import configuration from '#~/model/configuration.js'
 
 const checkFileType = async function (file, cb) {
 	//get the file type from configuration / not yet handle how configuration works
-	const config = (await configuration.find({}).sort({updatedAt: -1}))[0]
-    var fileType=''
-	for (var i = 0; i < config.fileType.length; i++) {
-		if (i != config.fileType.length - 1) {
-			fileType += config.fileType[i] + '|'
+	const config = (await configuration.find({}))[0]
+	var fileType = ''
+	for (var i = 0; i < config.currentFileType.length; i++) {
+		if (i != config.currentFileType.length - 1) {
+			fileType += config.currentFileType[i] + '|'
 		} else {
-			fileType += config.fileType[i]
+			fileType += config.currentFileType[i]
 		}
 	}
 	const allowedFileType = new RegExp(fileType)
@@ -20,7 +20,7 @@ const checkFileType = async function (file, cb) {
 	const extName = allowedFileType.test(path.extname(file.originalname).toLowerCase())
 
 	const mimeType =
-    allowedFileType.test(file.mimetype) ||
+		allowedFileType.test(file.mimetype) ||
 		file.mimetype ===
 			'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 
@@ -46,18 +46,27 @@ const getFileType = (fileName) => {
 }
 const getFilePages = async (file, fileType) => {
 	const fileBuffer = file.buffer
-	const pages = 0
+	var pages = 0
 	if (fileType == 'docx') {
-		const pages = await DocxCounter.count(fileBuffer)
+		 pages = await DocxCounter.count(fileBuffer)
 	} else if (fileType == 'pdf') {
-		const pages = await PdfCounter.count(fileBuffer)
+		 pages = await PdfCounter.count(fileBuffer)
 	}
 	return pages
 }
+const isString = (str) => {
+	try {
+		const a = JSON.parse(str)
+		console.log(a)
+	} catch (e) {
+		return false
+	}
+	return true
+}
 const uploadMultiple = function (req, res, next) {
 	try {
-		upload.array('file')(req, res, (err) => {
-			//Input validation for valid files
+		upload.array('file')(req, res, async(err) => {
+			// Input validation for valid files
 			if (err) {
 				return next({
 					status: 400,
@@ -70,11 +79,19 @@ const uploadMultiple = function (req, res, next) {
 					message: 'No file received',
 				})
 			}
-			//Add the document field for each file
+			//Check if documents passed as string => change to JSON
+			var documents= req.body.documents
+			if (isString(documents)) {
+				req.body.documents = JSON.parse(documents)
+				console.log(req.body.documents);
+			}
+			// Add the document field for each file
+			// console.log(req.body.documents);
 			for (var i = 0; i < req.files.length; i++) {
 				var title = req.files[i].originalname
 				var fileType = getFileType(title)
-				var pages = getFilePages(req.files[i], fileType)
+				var pages = await getFilePages(req.files[i], fileType)
+				// console.log(req.body.documents)
 				req.body.documents[i].document = {
 					title,
 					pages,

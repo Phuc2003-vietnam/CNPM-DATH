@@ -19,7 +19,6 @@ async function confirm_print({
 	userInfo,
 	printerId,
 }) {
-
 	//Check printer
 	const checkPrinter = await printer.findOne({printerId})
 	if (!checkPrinter) {
@@ -44,7 +43,7 @@ async function confirm_print({
 	}
 
 	//Check accpeted file and numVersion and balance
-	const typelist = getConfig.fileType
+	const typelist = getConfig.currentFileType
 	let summary_payment = 0
 
 	for (const doc of documents) {
@@ -71,6 +70,7 @@ async function confirm_print({
 
 	}
 
+	console.log("hasdasd");
 	//Not enough balance
 	if(userInfo.balance < summary_payment){
 		return Promise.reject({
