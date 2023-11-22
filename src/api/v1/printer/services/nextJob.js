@@ -29,26 +29,37 @@ async function nextJob({
     if(Jobs.length > 0){
 
         let headJobId = Jobs[0]
-        await printer.updateOne(
-            {printerId: printerId},
-            { 
-                $pull: { printingJob: headJobId },
-                $push: { printingLog: headJobId}
-            }
-        )
 
-        await printingLog.updateOne(
-            {_id: headJobId},
-            {
-                $set: { status: "Completed" }
-            }
-        )
+        let checkLog = await printingLog.findById(headJobId)
 
-        result.moveJob = {
+        // Have to move now
+        if(checkLog.status === "Completed"){
+
+            await printer.updateOne(
+                {printerId: printerId},
+                { 
+                    $pull: { printingJob: headJobId },
+                    $push: { printingLog: headJobId}
+                }
+            )
+        } // Dont move, change status first
+        else if (checkLog.status === "InProgress"){
+
+            await printingLog.updateOne(
+                {_id: headJobId},
+                {
+                    $set: { status: "Completed" }
+                }
+            )
+        }
+
+        result.move = {
             id: headJobId,
             status_before: "InProgress",
             status_now: "Completed"
         }
+        return result
+
     }
 
     //Exist printigQueue
@@ -71,14 +82,14 @@ async function nextJob({
             }
         )
 
-        result.moveQueue = {
+        result.move = {
             id: headQueueId,
             status_before: "Queued",
             status_now: "InProgress"
         }
     }
     
-    if(!result.moveQueue && !result.moveJob){
+    if(!result.move){
         return Promise.reject({
             status: 422,
             message: `The printer with printerId: [${printerId}] has nothing to do!`
