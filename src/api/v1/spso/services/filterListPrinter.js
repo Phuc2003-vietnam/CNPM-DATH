@@ -15,11 +15,13 @@ async function filterListPrinter({
 		sortDirection = -1
 	}
 	//handle random status
-	if (status != 0 && status != 1) {
-		status = 1
-	}
+	// if (status != 0 && status != 1) {
+	// 	status = 1
+	// }
 	const query = {}
-	query.status = status
+	if (status ==0 || status == 1) {
+		query.status = status
+	}
 	if (searchField) {
 		query.printerId = {$regex: searchField}
 	} //Search for printerId
