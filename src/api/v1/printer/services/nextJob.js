@@ -48,7 +48,11 @@ async function nextJob({
             await printingLog.updateOne(
                 {_id: headJobId},
                 {
-                    $set: { status: "Completed" }
+                    $set: { 
+                        status: "Completed",
+                        finishDate: new Date()
+                    }
+                    
                 }
             )
         }

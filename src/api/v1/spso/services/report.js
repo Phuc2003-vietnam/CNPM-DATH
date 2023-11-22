@@ -119,7 +119,10 @@ async function report({
 
         // Update data for existing month-years
         printingLogs.forEach((log) => {
-            const logMonthYear = `${log.createdAt.getFullYear()}-${log.createdAt.getMonth() + 1}`;
+            
+            if(!log.finishDate) return
+
+            const logMonthYear = `${log.finishDate.getFullYear()}-${log.finishDate.getMonth() + 1}`;
             const monthlyEntry = printerInfo.monthlyData.find(entry => entry.monthYear === logMonthYear);
 
             if(!monthlyEntry) return
