@@ -46,29 +46,48 @@ async function filterAll_Logs({
         { $match: query },
         { $sort: { createdAt: sortDirection } },
         { $skip: (current_page - 1) * per_page },
-        { $limit: per_page }
+        { $limit: per_page },
+        { 
+            $project: {
+                'printers._id': 0,
+                'printers.description': 0,
+                'printers.brand': 0,
+                'printers.model': 0,
+                'printers.printingLog': 0,
+                'printers.printingJob': 0,
+                'printers.printingQueue': 0,
+                'printers.createdAt': 0,
+                'printers.updatedAt': 0,
+                'printers.__v': 0
+            }
+        }
     ])
 
     //COUNT SUMMARY
     let printedA3 = 0
     let printedA4 = 0
 
-    filteredLogs.forEach(log => {
+    const final_logs = filteredLogs.map(log => {
         let total = total_pages(log.numVersion, log.pagesPerSheet, log.document)
 
-        if(log.status!== "Completed") return
+        // if(log.status!== "Completed") return
 
         if(log.paperSize === "A3"){
             printedA3 += total
         } else if(log.paperSize === "A4"){
             printedA4 += total
         }
+
+        return {
+            ...log,
+            total_pages: total
+        }
     })
 
     let result = {
         "printedA3": printedA3,
         "printedA4": printedA4,
-        "printingLogs": filteredLogs
+        "printingLogs": final_logs
     }
 
     return result
