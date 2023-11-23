@@ -8,6 +8,7 @@ import paymentHandler from './paymentHandler.js'
 import getPayment from './getPayment.js'
 import BKpayHandler from './BKpayHandler.js'
 import getPrinters from './getPrinters.js'
+import getSinglePrinter from './getSinglePrinter.js'
 
 class StudentService extends UserService {
     confirm_print=confirm_print
@@ -19,5 +20,6 @@ class StudentService extends UserService {
     getPayment=getPayment
     BKpayHandler=BKpayHandler
     getPrinters=getPrinters
+    getSinglePrinter=getSinglePrinter
 }
 export default StudentService
