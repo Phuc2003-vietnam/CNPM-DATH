@@ -16,7 +16,14 @@ async function filterAllStudent ({
 
     let query = {role: "student"}
     if (studentId) {query.mssv = {$regex: studentId}}
-    if(studentName) {query.firstName = {$regex: studentName}}
+    // if(studentName) {query.firstName = {$regex: studentName}}
+    // if(studentName) {query.firstName = { $regex: new RegExp(studentName, 'i') }} //applied case-insensitive match and escape
+    if (studentName) {
+        query.$or = [
+          { 'firstName': { $regex: new RegExp(studentName, 'i') } },
+          { 'lastName': { $regex: new RegExp(studentName, 'i') } }
+        ]
+    } //applied case-insensitive match and escape
 
     //Execute
     let allStudents = await user.aggregate([
