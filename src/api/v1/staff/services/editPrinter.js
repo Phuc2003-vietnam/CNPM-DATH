@@ -1,15 +1,13 @@
 import printer from '#~/model/printer.js'
 
 async function editPrinter({printerId, status}) {
-	if (!status) {
-		return Promise({
-			status: 404,
-			message: 'Status of the printer is not defined',
-		})
+	var query={}
+	if (status==1||status==0) {
+		query.status = status
 	}
 	const result = await printer.findOneAndUpdate(
 		{printerId},
-		{$set: {status}},
+		{$set: {...query}},
 		{returnDocument: 'after'}
 	)
 	if (result !== null) {

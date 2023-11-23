@@ -9,10 +9,10 @@ const userAuth = async (req, res, next) => {
 		var {user_id, session_id} = jwt.verify(accessToken, access_token_key)
 		const userService = new UserSerivce()
 		req.userService = userService
-		req.accessToken=accessToken
+		req.accessToken = accessToken
 		next()
 	} catch (err) {
-		console.log(err);
+		console.log(err)
 		next({status: 401, message: 'Unauthorized'})
 	}
 }

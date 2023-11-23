@@ -14,6 +14,9 @@ async function editPrinter({printerId, brand, model, location, status, descripti
 	if (description) {
 		query.description = description
 	}
+	if (status==1||status==0) {
+		query.status = status
+	}
 	const result = await printer.findOneAndUpdate(
 		{printerId},
 		{$set: query},

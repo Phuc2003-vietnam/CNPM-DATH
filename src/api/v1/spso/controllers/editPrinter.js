@@ -6,7 +6,7 @@ const editPrinter = async (req, res, next) => {
 			brand,
 			model,
 			location,
-			status,
+			status:parseInt(status),
 			description,
 		})
 		res.status(200).json({data})
