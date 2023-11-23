@@ -66,7 +66,8 @@ const uploadMultiple = function (req, res, next) {
 	try {
 		upload.array('file')(req, res, async(err) => {
 			// Input validation for valid files
-			console.log(req.files);
+			console.log("Documents read: "+req.body.documents);
+			console.log("File read: "+ req.files);
 			if (err) {
 				return next({
 					status: 400,
