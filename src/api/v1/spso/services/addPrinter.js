@@ -8,6 +8,12 @@ async function addPrinter({printerId, brand, model, location, status, descriptio
 			message: 'Wrong facility value',
 		})
 	}
+	if (!printerId || printerId.length==0) {
+		return Promise.reject({
+			status: 400,
+			message: 'Wrong printerId value or not assigned value',
+		})
+	}
 	const data = await printer.findOne({printerId})
 	if (!data) {
 		const printerRecord = await printer.create({
@@ -19,10 +25,12 @@ async function addPrinter({printerId, brand, model, location, status, descriptio
 			description,
 		})
 		//push the printer ID to relevant staff printer list
-		await user.updateMany(
+		console.log(location);
+		const a =await user.updateMany(
 			{location, role: 'staff'},
 			{$push: {printer: printerRecord.printerId}}
 		)
+		console.log(a);
 		return printerRecord
 	} else {
 		return Promise.reject({

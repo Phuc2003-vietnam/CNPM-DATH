@@ -4,7 +4,7 @@ const addPrinter = async (req, res, next) => {
 	try {
 		const {printerId, brand, model, location, status, description} = req.body
 		const data = await req.spsoService.addPrinter({
-			printerId,
+			printerId:printerId.trim(),
 			brand,
 			model,
 			location,

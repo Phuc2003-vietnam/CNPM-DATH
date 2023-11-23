@@ -18,7 +18,6 @@ const user = new Schema(
 		},
 		printingLog: {type: [String]},
 		payment:{type: [String]},
-		printer:{type:[String]}
 	},
 	{
 		timestamps: true,

@@ -7,6 +7,8 @@ import filterAllStudent from './filterAllStudent.js'
 import report from './report.js'
 import editSystemConfig from './editSystemConfig.js'
 import getSystemConfig from './getSystemConfig.js'
+import getPrintingQueue from './getPrintingQueue.js'
+import getPrintingLog from './getPrintingLog.js'
 
 
 class SpsoService extends UserService {
@@ -18,5 +20,7 @@ class SpsoService extends UserService {
     report=report
     editSystemConfig = editSystemConfig
     getSystemConfig=getSystemConfig
+    getPrintingQueue=getPrintingQueue
+    getPrintingLog=getPrintingLog
 }
 export default SpsoService

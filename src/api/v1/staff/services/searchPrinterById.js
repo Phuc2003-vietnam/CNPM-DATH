@@ -3,55 +3,25 @@ import printingLog from '#~/model/printingLog.js'
 import user from '#~/model/user.js'
 import configuration from '#~/model/configuration.js'
 
-async function filterListPrinter({per_page, current_page, searchField, printerList}) {
+async function filterListPrinter({per_page, current_page, searchField, location}) {
 	//pre process data
-	var query = {}
 	var printers = await printer
-		.find({printerId: {$in: printerList, $regex: searchField}})
+		.find({location,printerId: {$regex: searchField}})
 		.skip((current_page - 1) * per_page)
 		.limit(per_page)
-	var totalPrinterRecord = await printer.find({
-		printerId: {$in: printerList},
-	})
-	var activatedPrinterRecord = await printer.find({
-		printerId: {$in: printerList},
-		status: 1,
-	})
-	var totalPrinter = totalPrinterRecord.length
-	var activatedPrinter = activatedPrinterRecord.length
-	//ADD queue list : GET the printing log ID in each Printer => get the user ID from printing log => combine them
-	async function getprintingQueue(option) {
-		const printingQueue = await Promise.all(
-			option.map(async (printingLogId) => {
-				if (printingLogId != 'default') {
-					var printingLogObj = await printingLog
-						.findById(printingLogId)
-						.select('document.title status numVersion user_id -_id')
-					var userObj = await user
-						.findById(printingLogObj.user_id)
-						.select('firstName lastName mssv -_id')
-					// const userobj=userObj.toObject()
-
-					return {...userObj.toObject(), ...printingLogObj.toObject()} //remember to use toObject() otherwise it looks terrible
-				} else {
-					return {}
-				}
-			})
-		)
-		return printingQueue
+	var totalPrinter=printers.length
+	var activatedPrinter=0;
+	for (var i=0;i<totalPrinter;i++)
+	{
+		if(printers[i].status)
+		{
+			activatedPrinter++;
+		}
 	}
 
-	//Apply function
-	for (var i = 0; i < printers.length; i++) {
-		const printerObject = printers[i].toObject()
-		printerObject.printingLog = await getprintingQueue(printerObject.printingLog)
-		printerObject.printingQueue = await getprintingQueue(
-			printerObject.printingQueue
-		) //Join PrintingQueue
-		printerObject.printingJob = await getprintingQueue(printerObject.printingJob) //Join PrintingJob
-		printers[i] = printerObject
-	}
-	const {currentFileType}=await configuration.findOne({}).select('currentFileType -_id')
+	const {currentFileType} = await configuration
+		.findOne({})
+		.select('currentFileType -_id')
 	var data = {
 		per_page,
 		current_page,
@@ -59,7 +29,7 @@ async function filterListPrinter({per_page, current_page, searchField, printerLi
 		total_pages: Math.ceil(totalPrinter / per_page),
 		activatedPrinter,
 		printers,
-		currentFileType
+		currentFileType,
 	}
 	return data
 }
