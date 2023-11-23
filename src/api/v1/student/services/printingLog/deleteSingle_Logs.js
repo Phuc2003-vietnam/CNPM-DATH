@@ -26,7 +26,7 @@ async function deleteSingle_Logs({
     } else if(log.status !== 'Queued') {
         return Promise.reject({
             status: 503,
-            message: `The document ${log.document.title}.${log.document.fileType} cannot be cancelled, because it was already cancelled!`
+            message: `The document ${log.document.title}.${log.document.fileType} cannot be cancelled, because it was already cancelled or printed!`
         })
     }
 
