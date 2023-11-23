@@ -62,9 +62,9 @@ const isString = (str) => {
 	}
 	return true
 }
-const uploadMultiple = function (req, res, next) {
+const uploadMultiple = async function (req, res, next) {
 	try {
-		upload.array('file')(req, res, async(err) => {
+		await upload.array('file')(req, res, async(err) => {
 			// Input validation for valid files
 			console.log("Documents read: "+req.body.documents);
 			console.log("File read: "+ req.files);
