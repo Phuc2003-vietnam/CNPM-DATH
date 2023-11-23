@@ -21,12 +21,13 @@ async function confirm_print({
 }) {
 	//Check printer
 	const checkPrinter = await printer.findOne({printerId})
+	console.log(checkPrinter);
 	if (!checkPrinter) {
 		return Promise.reject({
 			status: 404,
 			message: 'The requested printerId was not found in the database',
 		})
-	} else if (checkPrinter.status !== 1) {
+	} else if (checkPrinter.status != 1) {
 		return Promise.reject({
 			status: 503,
 			message: 'The printer is currently offline. Please try again later',

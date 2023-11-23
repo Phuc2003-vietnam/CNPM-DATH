@@ -57,7 +57,6 @@ const getFilePages = async (file, fileType) => {
 const isString = (str) => {
 	try {
 		const a = JSON.parse(str)
-		console.log(a)
 	} catch (e) {
 		return false
 	}
@@ -67,6 +66,7 @@ const uploadMultiple = function (req, res, next) {
 	try {
 		upload.array('file')(req, res, async(err) => {
 			// Input validation for valid files
+			console.log(req.files);
 			if (err) {
 				return next({
 					status: 400,
@@ -83,15 +83,12 @@ const uploadMultiple = function (req, res, next) {
 			var documents= req.body.documents
 			if (isString(documents)) {
 				req.body.documents = JSON.parse(documents)
-				console.log(req.body.documents);
 			}
 			// Add the document field for each file
-			// console.log(req.body.documents);
 			for (var i = 0; i < req.files.length; i++) {
 				var title = req.files[i].originalname
 				var fileType = getFileType(title)
 				var pages = await getFilePages(req.files[i], fileType)
-				// console.log(req.body.documents)
 				req.body.documents[i].document = {
 					title,
 					pages,

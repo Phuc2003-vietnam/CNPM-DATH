@@ -7,7 +7,6 @@ export const confirm_print = async (req, res, next) => {
 			documents, //fix document to know the size of pages
 			printerId,
 		} = req.body
-		console.log(documents);
 		const userInfo = req.studentService.userInfo
 		const data = await new StudentService().confirm_print({
 			documents,
