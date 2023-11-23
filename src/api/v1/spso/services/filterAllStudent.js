@@ -16,8 +16,6 @@ async function filterAllStudent ({
 
     let query = {role: "student"}
     if (studentId) {query.mssv = {$regex: studentId}}
-    // if(studentName) {query.firstName = {$regex: studentName}}
-    // if(studentName) {query.firstName = { $regex: new RegExp(studentName, 'i') }} //applied case-insensitive match and escape
     if (studentName) {
         query.$or = [
           { 'firstName': { $regex: new RegExp(studentName, 'i') } },
@@ -48,18 +46,24 @@ async function filterAllStudent ({
         }
     ])
 
-    for(let ele of allStudents) {
-        let total_payment = 0
-
-        for(let i=0; i < ele.printingLog.length; i++){
-            let log = await printingLog.findById(ele.printingLog[i])
-            const {paperSize, numVersion, pagesPerSheet, document} = log
-            total_payment += balance_helper(paperSize, numVersion, pagesPerSheet, document)
-
-            ele.printingLog[i] = log
+    // Batch lookup for printing logs
+    const logIds = allStudents.reduce((ids, student) => ids.concat(student.printingLog), [])
+    const logs = await printingLog.find(
+        { 
+            _id: { $in: logIds },
+            status: "Completed"
         }
-        ele.total_payment = total_payment
-    }
+    )
+
+    // Map logs to students
+    allStudents.forEach((student) => {
+
+        student.printingLog = logs.filter((log) => student.printingLog.includes(log._id.toString()))
+
+        student.total_payment = student.printingLog.reduce(
+            (total, log) => total + balance_helper(log.paperSize, log.numVersion, log.pagesPerSheet, log.document), 0
+        )
+    })
 
     //sort
     // Sort by name
