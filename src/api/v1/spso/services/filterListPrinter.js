@@ -33,7 +33,14 @@ async function filterListPrinter({
 		.limit(per_page)
 		.sort({activatedTime: sortDirection})
 	var totalPrinter = (await printer.find(str)).length //'location.facility': undefind not work as expected
-	var activatedPrinter = (await printer.find({status: 1, ...str})).length
+	var activatedPrinter=0;
+	for (var i=0;i<totalPrinter;i++)
+	{
+		if(printers[i].status)
+		{
+			activatedPrinter++;
+		}
+	}
 	var data = {
 		per_page,
 		current_page,
