@@ -1,5 +1,4 @@
 import printingLog from '#~/model/printingLog.js'
-import user from '#~/model/user.js'
 import { total_pages } from './getAll_Logs.js'
 
 async function filterAll_Logs({
@@ -20,7 +19,13 @@ async function filterAll_Logs({
     // Create a base query for user_id
     let query = { user_id: userInfo._id.toString() }
     if (status) { query.status = status }
-    if (searchField) {query.printerId = {$regex: searchField}} //Search for printerId
+    if (searchField !== undefined) {
+        query.$or = [
+          { 'document.title': { $regex: new RegExp(searchField, 'i') } },
+          { 'document.fileType': { $regex: new RegExp(searchField, 'i') } }
+        ];
+      } //Search for fileName also fileType, applied case-insensitive match
+
     if (facility && (facility === 'CS1' || facility === 'CS2')) {
         query = {
             ...query,
