@@ -16,29 +16,26 @@ async function filterListPrinter({
 	}
 	const query = {}
 	var str = {}
-	if (status == 0 || status == 1) {
+	if (status === 0 || status === 1) {
 		query.status = status
 	}
 	if (searchField) {
 		query.printerId = {$regex: searchField}
-	} 
+	}
 	if (facility) {
-		str = {'location.facility': facility}
 		query['location.facility'] = facility
 	}
 	//Find printers
-	var printers = await printer 
+	var printers = await printer
 		.find(query)
 		.skip((current_page - 1) * per_page)
 		.limit(per_page)
 		.sort({activatedTime: sortDirection})
-	var totalPrinter = (await printer.find(str)).length //'location.facility': undefind not work as expected
-	var activatedPrinter=0;
-	for (var i=0;i<totalPrinter;i++)
-	{
-		if(printers[i].status)
-		{
-			activatedPrinter++;
+	var totalPrinter = printers.length
+	var activatedPrinter = 0
+	for (var i = 0; i < printers.length; i++) {
+		if (printers[i].status) {
+			activatedPrinter++
 		}
 	}
 	var data = {
