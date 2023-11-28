@@ -3,7 +3,7 @@ import printerService from "../services/index.js"
 const nextJob = async (req, res, next) => {
     try {
         
-        const {printerId} = req.query
+        const {printerId} = req.body
         const data = await new printerService().nextJob({
             printerId
         })
