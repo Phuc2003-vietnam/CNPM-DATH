@@ -5,6 +5,10 @@ import configuration from '#~/model/configuration.js'
 
 async function filterListPrinter({per_page, current_page, searchField, location}) {
 	//pre process data
+	if(!searchField)
+	{
+		searchField="" // handle case when not include searchfield in param => cause $regrex to be undefined
+	}
 	var printers = await printer
 		.find({location,printerId: {$regex: searchField}})
 		.skip((current_page - 1) * per_page)

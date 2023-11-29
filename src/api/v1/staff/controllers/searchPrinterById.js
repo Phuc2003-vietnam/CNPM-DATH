@@ -4,6 +4,7 @@ const searchPrinterById = async (req, res, next) => {
 		const {searchField} = req.query
 		const {per_page, current_page} = req
         const location=req.staffService.userInfo.location
+		console.log(location);
 		const data = await req.staffService.searchPrinterById({
 			per_page,
 			current_page,
