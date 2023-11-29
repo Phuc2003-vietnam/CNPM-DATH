@@ -10,6 +10,7 @@ import getPrintingQueue from './controllers/getPrintingQueue.js'
 import getPrintingLog from './controllers/getPrintingLog.js'
 import spsoAuth from '#~/middleware/spsoAuth.js'
 import paginationHandler from '#~/middleware/paginationHandler.js'
+import viewReport from './controllers/viewReport.js'
 
 const spso_router = Router()
 spso_router.post('/printer', spsoAuth,addPrinter)
@@ -21,5 +22,5 @@ spso_router.put('/systemConfig', spsoAuth, editSystemConfig)
 spso_router.get('/systemConfig', spsoAuth, getSystemConfig)
 spso_router.get('/printingQueue', spsoAuth, getPrintingQueue)
 spso_router.get('/printingLog', spsoAuth, getPrintingLog)
-
+spso_router.get('/viewReport', spsoAuth, viewReport)
 export default spso_router
