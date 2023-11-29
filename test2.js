@@ -1,9 +1,10 @@
-	const numbers = [1, 2, 3, 4, 5]
-	// Using map to create a new array where each element is doubled
-	const doubledNumbers = numbers.map(async (num) => {
-		return num * 2
-	})
-	const tripledNumbers = numbers.map(async (num) => {
-		return num * 3
-	})
-	Promise.all(doubledNumbers).then((data) => console.log(data))
+// var startDate = new Date('2023-11-18')
+var endDate = new Date('2023-11-25')
+// var a = new Date('2023-11-18T08:58:09.613+00:00')
+// if (a < endDate) {
+// 	console.log('iok')
+// } else {
+// 	console.log('okasda')
+// }
+var a= ""
+if()

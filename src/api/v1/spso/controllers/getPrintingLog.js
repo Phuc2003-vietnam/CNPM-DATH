@@ -1,7 +1,7 @@
 const getPrintingLog = async (req, res, next) => {
 	try {
-        const {printerId}=req.query
-		const data = await req.spsoService.getPrintingLog({printerId})
+        var {printerId,startDate,endDate}=req.query
+		const data = await req.spsoService.getPrintingLog({printerId,startDate,endDate})
 		res.status(200).json({data})
 	} catch (err) {
 		next(err)

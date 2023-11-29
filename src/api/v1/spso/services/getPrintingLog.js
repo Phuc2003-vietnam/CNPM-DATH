@@ -1,7 +1,9 @@
 import printer from '#~/model/printer.js'
 import getPrintingRecordHelper from './getPrintingRecordHelper.js'
+import formatDate from "./formatDate.js"
 
-async function getPrintingQueue({printerId}) {
+async function getPrintingQueue({printerId,startDate,endDate}) {
+	var {startDate,endDate}=formatDate({startDate,endDate})
 	var printerRecord =  await printer.findOne({printerId}).select('-printingJob -printingQueue')
 	if(!printerRecord)
 	{
@@ -11,7 +13,7 @@ async function getPrintingQueue({printerId}) {
 		})
 	}
 	const printerObject = printerRecord.toObject()
-	printerObject.printingLog = await getPrintingRecordHelper(printerObject.printingLog)
+	printerObject.printingLog = await getPrintingRecordHelper(printerObject.printingLog,startDate,endDate)
 	return printerObject
 }
 
