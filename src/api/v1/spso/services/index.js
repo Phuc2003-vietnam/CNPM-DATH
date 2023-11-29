@@ -9,7 +9,7 @@ import editSystemConfig from './editSystemConfig.js'
 import getSystemConfig from './getSystemConfig.js'
 import getPrintingQueue from './getPrintingQueue.js'
 import getPrintingLog from './getPrintingLog.js'
-
+import viewReport from './viewReport.js'
 
 class SpsoService extends UserService {
     addPrinter=addPrinter
@@ -22,5 +22,6 @@ class SpsoService extends UserService {
     getSystemConfig=getSystemConfig
     getPrintingQueue=getPrintingQueue
     getPrintingLog=getPrintingLog
+    viewReport=viewReport
 }
 export default SpsoService

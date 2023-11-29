@@ -97,8 +97,14 @@ async function report({
 
         //If year and month is requested
         if(year) {
-            if (year < base_year) { end_year = base_year - 1}
-            else if(year > end_year) { base_year = end_year + 1}
+            
+            if( base_year <= year && year <= end_year){
+                base_year = year
+                end_year = year
+            }
+            else if (year < base_year) { end_year = base_year - 1}
+            else if (year > end_year) { base_year = end_year + 1}
+
         }
         if(month) {base_month = parseInt(month), end_month = base_month}
 
