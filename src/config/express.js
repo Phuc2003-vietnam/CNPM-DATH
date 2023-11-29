@@ -5,7 +5,7 @@ import configSwagger from './swagger.js'
 import {} from "dotenv/config";
 import db from "./mongoDB.js";
 import {createServer} from 'http'
-import {initializeSocketServer} from "./socketio.js"
+import {initializeSocketServer} from "./socketIo.js"
 
 const port =  8000
 
