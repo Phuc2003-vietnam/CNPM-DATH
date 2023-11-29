@@ -4,10 +4,13 @@ import router from '../routers/index.js'
 import configSwagger from './swagger.js'
 import {} from "dotenv/config";
 import db from "./mongoDB.js";
+import {createServer} from 'http'
+import {initializeSocketServer} from "./socketio.js"
 
 const port =  8000
 
 const configExpressApp = async (app) => {
+	const httpServer = createServer(app)
 	db.connect()
 	app.set('port', port)
 	app.use(cors())
@@ -30,8 +33,13 @@ const configExpressApp = async (app) => {
 		}
 	})
 	configSwagger(app)
+	initializeSocketServer(httpServer)
 	app.listen(app.get('port'), async () => {
-		console.log(`start server at port: ${app.get('port')}`)
+		try {
+			console.log(`start server at port: ${app.get('port')}`)
+		} catch (err) {
+			console.log(err)
+		}
 	})
 	return app
 }
