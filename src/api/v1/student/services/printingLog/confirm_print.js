@@ -65,8 +65,8 @@ async function confirm_print({
 			})
 		}
 
-		const {paperSize, numVersion, pagesPerSheet, document} = doc
-		let pay_amount = balance_helper(paperSize, numVersion, pagesPerSheet, document)
+		const {paperSize, numVersion, pagesPerSheet, numSides, document} = doc
+		let pay_amount = balance_helper(paperSize, numVersion, pagesPerSheet * numSides, document)
 		summary_payment += pay_amount
 
 	}
@@ -89,8 +89,12 @@ async function confirm_print({
 			colorOption,
 			landScapeOption,
 			pagesPerSheet,
+			numSides,
 			document
 		} = doc
+
+		//Fix logic
+		pagesPerSheet *= numSides
 
 		let singleConfirm = await confirm_print_single({
 			paperSize,
