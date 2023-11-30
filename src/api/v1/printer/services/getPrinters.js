@@ -1,9 +1,10 @@
 import printer from "#~/model/printer.js"
 import printingLog from "#~/model/printingLog.js"
+import getLatestComplete from "./getLatestComplete.js"
 
 async function getPrinters() {
     
-    const printers = await printer.find({ status: 1 }).select('-printingLog');
+    const printers = await printer.find({ status: 1 })
 
     if (!printers) {
         return printers;
@@ -29,11 +30,16 @@ async function getPrinters() {
             Promise.all(printingQueuePromises),
         ]);
 
-        return {
+        //Display resolve here !
+        let pick = (printingJobs.length > 0) ? printingJobs : await getLatestComplete(single.printingLog)
+        let result = {
             ...single.toObject(),
-            printingJob: printingJobs,
+            printingJob: pick,
             printingQueue: printingQueues,
         };
+        result.printingLog = undefined
+
+        return result
     });
 
     return Promise.all(printerPromises);

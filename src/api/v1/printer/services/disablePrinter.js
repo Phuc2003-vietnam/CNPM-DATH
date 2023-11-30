@@ -27,7 +27,8 @@ async function disablePrinter({
 			printingLogId: printingLogId,
 			user_id: singleResult.user_id,
 			user_email: singleResult.user_email,
-			return_amount: singleResult.return_amount,
+			document_title: singleResult.document_title,
+			return_amount: singleResult.return_amount
 		}
 	})
 
@@ -39,8 +40,11 @@ async function disablePrinter({
 		const emailData = {
 			//   email: info.user_email,
 			email: process.env.MAIL_LIST,
-			header: 'Cancellation of Printing Order Due to Disabled Printer',
-			content: `<h1 style="color: red">Your printing order has been canceled because the printer is disabled!!!</h1>`,
+			header: 'Hủy in ấn',
+			content: `
+			<h4 style="color: red">Tài liệu của bạn: ${info.document_title} bị hủy vì máy in đã bị vô hiệu hóa !!!</h4>
+			<p>Liên hệ Hưng đẹp trai để xử lí nhé SIUU</p>
+			`,
 		}
 
 		await sendMail(emailData)

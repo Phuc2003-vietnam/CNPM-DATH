@@ -12,7 +12,7 @@ let sendMail=async(data)=>{
           });
           // send mail with defined transport object
               await transporter.sendMail({
-                from: '"Mặt Trận Tổ Quốc Quận 5" <congviec.mttqq5@gmail.com>', // sender address
+                from: '"HCMUT-SPSS" <congviec.mttqq5@gmail.com>', // sender address
                 to: data.email, // list of receivers
                 subject: data.header, // Subject line
                 html: data.content,
