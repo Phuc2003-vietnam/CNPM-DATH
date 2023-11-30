@@ -30,6 +30,7 @@ async function editPrinter({printerId, brand, model, location, status, descripti
 		{returnDocument: 'after'}
 	)
 	if (result !== null) {
+		//socket io 
 		const data = {
 			message: 'Call the printer list api to fetch printer list =>change printer information',
 			target: 'student spso staff',

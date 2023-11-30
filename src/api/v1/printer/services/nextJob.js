@@ -79,7 +79,18 @@ async function nextJob({
         // Send email to user
         const {user_id, document} = checkLog
         await sendToUser({user_id, document})
-
+        //Socket io implementation : it will send a signal to all online users connected to server
+		const data1 = {
+			message: 'Call the printer list api  + call the api to reload student history(not yet implement for specific student)',
+			target: 'student spso staff',
+		}
+		io.emit('update-printer-list', data1)
+        const data2 = {
+			message: 'Call the api to reload student history(not yet implement for specific student)',
+			target: 'student',
+		}
+		io.emit('update-student-history', data2)
+		//socket.on("update-printer-list",cb) : cb sẽ gọi api lấy fetch all printers 
         result.move = {
             id: headJobId,
             status_before: "InProgress",
@@ -111,7 +122,18 @@ async function nextJob({
                 $set: { status: "InProgress" }
             }
         )
-
+         //Socket io implementation : it will send a signal to all online users connected to server
+		const data1 = {
+			message: 'Call the printer list api  + call the api to reload student history(not yet implement for specific student)',
+			target: 'student spso staff',
+		}
+		io.emit('update-printer-list', data1)
+        const data2 = {
+			message: 'Call the api to reload student history(not yet implement for specific student)',
+			target: 'student',
+		}
+        io.emit('update-student-history', data2)
+		//socket.on("update-printer-list",cb) : cb sẽ gọi api lấy fetch all printers 
         result.move = {
             id: headQueueId,
             status_before: "Queued",
