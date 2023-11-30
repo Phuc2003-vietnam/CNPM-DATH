@@ -1,5 +1,27 @@
 import printer from "#~/model/printer.js";
 import printingLog from "#~/model/printingLog.js";
+import user from '#~/model/user.js';
+import { sendMail } from "#~/config/sendMail.js";
+import {} from 'dotenv/config'
+
+async function sendToUser({
+    user_id,
+    document
+}) {
+    const targetUser = await user.findById(user_id)
+    if(!targetUser) return
+
+    const emailData = {
+        //   email: targetUser.email,
+        email: process.env.MAIL_LIST,
+        header: 'Finish document',
+        content: `
+            <h1 style="color: green">Your file name: ${document.title} has printed successfully!</h1>
+        `,
+    }
+
+    await sendMail(emailData)
+}
 
 async function nextJob({
     printerId
@@ -42,6 +64,10 @@ async function nextJob({
                     $push: { printingLog: headJobId}
                 }
             )
+            // Send email to user
+            const {user_id, document} = checkLog
+            await sendToUser({user_id, document})
+
         } // Dont move, change status first
         else if (checkLog.status === "InProgress"){
 

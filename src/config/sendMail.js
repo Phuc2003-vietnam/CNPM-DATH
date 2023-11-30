@@ -16,7 +16,7 @@ let sendMail=async(data)=>{
                 to: data.email, // list of receivers
                 subject: data.header, // Subject line
                 html: data.content,
-                attachments: data.file
+                // attachments: data.file
               });
 }
 export {sendMail}

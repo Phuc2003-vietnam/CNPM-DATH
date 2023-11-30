@@ -1,4 +1,5 @@
 import printer from '#~/model/printer.js'
+import disablePrinter from '../../printer/services/disablePrinter.js'
 
 async function editPrinter({printerId, brand, model, location, status, description}) {
 	var query = {}
@@ -17,6 +18,12 @@ async function editPrinter({printerId, brand, model, location, status, descripti
 	if (status == 1 || status == 0) {
 		query.status = status
 	}
+
+	//Cancel Job and Queue in the printer
+	if(status==0) {
+		await disablePrinter({printerId})
+	}
+
 	const result = await printer.findOneAndUpdate(
 		{printerId},
 		{$set: query},
