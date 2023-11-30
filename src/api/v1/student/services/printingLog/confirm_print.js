@@ -76,7 +76,7 @@ async function confirm_print({documents, userInfo, printerId}) {
 	let all_docs = []
 	//Passed all
 	for (const doc of documents) {
-		const {
+		let {
 			paperSize,
 			numVersion,
 			colorOption,
