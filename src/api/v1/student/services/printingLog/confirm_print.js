@@ -2,7 +2,7 @@ import printingLog from '#~/model/printingLog.js'
 import user from '#~/model/user.js'
 import printer from '#~/model/printer.js'
 import configuration from '#~/model/configuration.js'
-
+import {io} from '#~/config/'
 export function balance_helper(paperSize, numVersion, pagesPerSheet, document) {
 	let pay_amount = 0
 	let flag = document.pages % pagesPerSheet === 0 ? 0 : 1
@@ -71,12 +71,11 @@ async function confirm_print({
 
 	}
 
-	console.log("hasdasd");
 	//Not enough balance
 	if(userInfo.balance < summary_payment){
 		return Promise.reject({
 			status: 503,
-			message: `Not enough blance: requested ${summary_payment} but available ${userInfo.balance}`,
+			message: `Sinh viên không đủ lượng giấy: yêu cầu ${summary_payment}, hiện có ${userInfo.balance}`,
 		})
 	}
 
