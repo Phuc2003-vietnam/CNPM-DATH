@@ -63,6 +63,7 @@ async function deleteSingle_Logs({
     //Socket io implementation : it will send a signal to all online users connected to server
 	const data={
 		message: "Call the printer list api to fetch printer list =>change number of printing request",
+		reason: "STUDENT DELETE a printing request QUEUE",
 		target: "student spso staff"
 	}
 	io.emit("update-printer-list",data)

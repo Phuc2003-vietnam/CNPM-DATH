@@ -22,6 +22,7 @@ async function editPrinter({printerId, status}) {
 		//Socket io implementation : it will send a signal to all online users connected to server
 		const data = {
 			message: 'Call the printer list api to fetch printer list =>change printer information',
+            reason: "STAFF edit the printer",
 			target: 'student spso staff',
 		}
 		io.emit('update-printer-list', data)

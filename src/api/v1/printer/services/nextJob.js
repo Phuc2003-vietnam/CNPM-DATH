@@ -3,6 +3,7 @@ import printingLog from "#~/model/printingLog.js";
 import user from '#~/model/user.js';
 import { sendMail } from "#~/config/sendMail.js";
 import {} from 'dotenv/config'
+import {io} from '#~/config/socketIo.js'
 
 async function sendToUser({
     user_id,
@@ -82,15 +83,18 @@ async function nextJob({
         //Socket io implementation : it will send a signal to all online users connected to server
 		const data1 = {
 			message: 'Call the printer list api  + call the api to reload student history(not yet implement for specific student)',
+            reason: "Printer do nextJob change the status of printingLog",
 			target: 'student spso staff',
 		}
 		io.emit('update-printer-list', data1)
         const data2 = {
 			message: 'Call the api to reload student history(not yet implement for specific student)',
+            reason: "Printer do nextJob change the status of printingLog",
 			target: 'student',
 		}
 		io.emit('update-student-history', data2)
 		//socket.on("update-printer-list",cb) : cb sẽ gọi api lấy fetch all printers 
+		//socket.on("update-student-history",cb) : cb sẽ gọi api lấy fetch student printing hisstory
         result.move = {
             id: headJobId,
             status_before: "InProgress",
@@ -125,15 +129,18 @@ async function nextJob({
          //Socket io implementation : it will send a signal to all online users connected to server
 		const data1 = {
 			message: 'Call the printer list api  + call the api to reload student history(not yet implement for specific student)',
+            reason: "Printer do nextJob change the status of printingLog",
 			target: 'student spso staff',
 		}
 		io.emit('update-printer-list', data1)
         const data2 = {
 			message: 'Call the api to reload student history(not yet implement for specific student)',
+            reason: "Printer do nextJob change the status of printingLog",
 			target: 'student',
 		}
         io.emit('update-student-history', data2)
 		//socket.on("update-printer-list",cb) : cb sẽ gọi api lấy fetch all printers 
+		//socket.on("update-student-history",cb) : cb sẽ gọi api lấy fetch student printing hisstory
         result.move = {
             id: headQueueId,
             status_before: "Queued",

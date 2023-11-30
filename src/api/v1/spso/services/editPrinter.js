@@ -1,5 +1,6 @@
 import printer from '#~/model/printer.js'
 import disablePrinter from '../../printer/services/disablePrinter.js'
+import {io} from '#~/config/socketIo.js'
 
 async function editPrinter({printerId, brand, model, location, status, description}) {
 	var query = {}
@@ -30,9 +31,10 @@ async function editPrinter({printerId, brand, model, location, status, descripti
 		{returnDocument: 'after'}
 	)
 	if (result !== null) {
-		//socket io 
-		const data = {
+         //Socket io implementation : it will send a signal to all online users connected to server
+		 const data = {
 			message: 'Call the printer list api to fetch printer list =>change printer information',
+            reason: "SPSO edit the printer",
 			target: 'student spso staff',
 		}
 		io.emit('update-printer-list', data)

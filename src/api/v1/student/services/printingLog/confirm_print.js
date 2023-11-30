@@ -105,6 +105,7 @@ async function confirm_print({documents, userInfo, printerId}) {
 	//Socket io implementation : it will send a signal to all online users connected to server
 	const data = {
 		message: 'Call the printer list api to fetch printer list =>change number of printing request',
+		reason: "STUDENT send a print request QUEUE => printer queue must change",
 		target: 'student spso staff',
 	}
 	io.emit('update-printer-list', data)
