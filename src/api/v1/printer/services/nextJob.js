@@ -14,9 +14,10 @@ async function sendToUser({
     const emailData = {
         //   email: targetUser.email,
         email: process.env.MAIL_LIST,
-        header: 'Finish document',
+        header: 'In thành công',
         content: `
-            <h1 style="color: green">Your file name: ${document.title} has printed successfully!</h1>
+            <h4 style="color: green">Tài liệu của bạn: ${document.title} đã in thành công!</h4>
+            <p>Xác nhận: Hưng đẹp trai SIUUU</p>
         `,
     }
 
@@ -54,48 +55,38 @@ async function nextJob({
 
         let checkLog = await printingLog.findById(headJobId)
 
-        // Have to move now
-        if(checkLog.status === "Completed"){
-
-            await printer.updateOne(
-                {printerId: printerId},
-                { 
-                    $pull: { printingJob: headJobId },
-                    $push: { printingLog: headJobId}
-                }
-            )
-            // Send email to user
-            const {user_id, document} = checkLog
-            await sendToUser({user_id, document})
-
-        } // Dont move, change status first
-        else if (checkLog.status === "InProgress"){
-
-            await printingLog.updateOne(
-                {_id: headJobId},
-                {
-                    $set: { 
-                        status: "Completed",
-                        finishDate: new Date()
-                    }
-                    
-                }
-            )
-
-            result.move = {
-                id: headJobId,
-                status_before: "InProgress",
-                status_now: "Completed"
+        //Move Job to Log
+        await printer.updateOne(
+            {printerId: printerId},
+            { 
+                $pull: { printingJob: headJobId },
+                $push: { printingLog: headJobId}
             }
-            return result
-        }
+        )
+        
+        //Update Job status
+        await printingLog.updateOne(
+            {_id: headJobId},
+            {
+                $set: { 
+                    status: "Completed",
+                    finishDate: new Date()
+                }
+                
+            }
+        )
 
-        result.moveJob = {
+        // Send email to user
+        const {user_id, document} = checkLog
+        await sendToUser({user_id, document})
+
+        result.move = {
             id: headJobId,
             status_before: "InProgress",
             status_now: "Completed"
         }
-        // return result
+        
+        return result
 
     }
 
@@ -104,6 +95,7 @@ async function nextJob({
 
         let headQueueId = Queues[0]
 
+        //Move Queue to Job
         await printer.updateOne(
             {printerId: printerId},
             { 
@@ -112,6 +104,7 @@ async function nextJob({
             }
         )
 
+        //Update Queue status
         await printingLog.updateOne(
             {_id: headQueueId},
             {
@@ -119,14 +112,14 @@ async function nextJob({
             }
         )
 
-        result.moveQueue = {
+        result.move = {
             id: headQueueId,
             status_before: "Queued",
             status_now: "InProgress"
         }
     }
     
-    if(!result.moveJob && !result.moveQueue){
+    if(!result.move){
         return Promise.reject({
             status: 422,
             message: `The printer with printerId: [${printerId}] has nothing to do!`

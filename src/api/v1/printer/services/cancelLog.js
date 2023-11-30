@@ -87,6 +87,7 @@ async function cancelLog({
     let result = {
         user_id: userInfo._id.toString(),
         user_email: userInfo.email,
+        document_title: log.document.title,
         return_amount: pay_amount
     }
     return result
