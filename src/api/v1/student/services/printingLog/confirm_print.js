@@ -105,6 +105,8 @@ async function confirm_print({
 		all_docs.push(singleConfirm)
 
 	}
+	//Socket io implementation : it will send a signal to all online users connected to server
+	io.emit("update-queue",())
 
 	let result = {
 		documents: all_docs,
