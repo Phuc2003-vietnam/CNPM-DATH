@@ -63,6 +63,9 @@ async function filterAllStudent ({
         student.total_payment = student.printingLog.reduce(
             (total, log) => total + balance_helper(log.paperSize, log.numVersion, log.pagesPerSheet, log.document), 0
         )
+
+        //Dont have to include printingLog, we will fetch it in another API named /v1/spso/detailStudent?start=&end=&sortDirection=
+        student.printingLog = undefined
     })
 
     //sort
