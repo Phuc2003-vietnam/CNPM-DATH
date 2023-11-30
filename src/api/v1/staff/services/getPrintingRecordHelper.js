@@ -7,7 +7,7 @@ async function getPrintingRecordHelper(option, startDate, endDate) {
 				var printingLogObj = await printingLog
 					.findById(printingLogId)
 					.select(
-						'document.title status numVersion user_id createdAt -_id'
+						'document status numVersion user_id createdAt -_id'
 					)
 				var logCreatedAt = new Date(printingLogObj.createdAt)
 				if (logCreatedAt >= startDate && logCreatedAt <= endDate) {
