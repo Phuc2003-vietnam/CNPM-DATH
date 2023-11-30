@@ -27,7 +27,7 @@ const checkFileType = async function (file, cb) {
 	if (mimeType && extName) {
 		return cb(null, true)
 	} else {
-		return cb(new Error('Invalid file type'))
+		return cb(new Error('Sinh viên gửi file không hợp lệ'))
 	}
 }
 

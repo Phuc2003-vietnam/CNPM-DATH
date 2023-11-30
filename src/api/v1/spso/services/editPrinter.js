@@ -15,7 +15,7 @@ async function editPrinter({printerId, brand, model, location, status, descripti
 	if (description) {
 		query.description = description
 	}
-	if (status==1||status==0) {
+	if (status == 1 || status == 0) {
 		query.status = status
 	}
 
@@ -30,6 +30,11 @@ async function editPrinter({printerId, brand, model, location, status, descripti
 		{returnDocument: 'after'}
 	)
 	if (result !== null) {
+		const data = {
+			message: 'Call the printer list api to fetch printer list =>change printer information',
+			target: 'student spso staff',
+		}
+		io.emit('update-printer-list', data)
 		return result
 	} else {
 		return Promise.reject({

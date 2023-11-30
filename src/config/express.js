@@ -34,7 +34,7 @@ const configExpressApp = async (app) => {
 	})
 	configSwagger(app)
 	initializeSocketServer(httpServer)
-	app.listen(app.get('port'), async () => {
+	httpServer.listen(app.get('port'), async () => {
 		try {
 			console.log(`start server at port: ${app.get('port')}`)
 		} catch (err) {

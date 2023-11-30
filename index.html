@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Chat App</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="chat">
+            <div class="messages" id="messages">
+                <!-- Messages will be displayed here -->
+            </div>
+            <input type="text" id="message" placeholder="Type a message..." />
+            <input type="text" id="room" placeholder="Type a room..." />
+            <button onclick="sendMessage()">Send</button>
+            <h1></h1>
+            <!--  -->
+        </div>
+        <div class="room">
+            <h2>Chat Room</h2>
+            <input type="text" id="roomChat" placeholder="Enter your room..." />
+            <button onclick="joinChat()">Join Chat</button>
+        </div>
+    </div>
+    <script src="https://cdn.socket.io/socket.io-3.0.0.js"></script>
+    <script src="test.js"></script>
+</body>
+</html>

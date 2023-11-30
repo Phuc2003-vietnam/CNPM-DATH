@@ -1,73 +1,53 @@
-const express = require('express')
-const multer = require('multer')
-const PDFParser = require('pdf-parse')
-const path = require('path')
-const {DocxCounter, OdtCounter, PdfCounter, PptxCounter} = require('page-count')
-const app = express()
-const PORT = 3000
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
-
-// Set up multer for handling file uploads
-const checkFileType = function (file, cb) {
-	//Allowed file extensions
-	const fileTypes = /pdf|/
-
-	//check extension names
-	const extName = fileTypes.test(path.extname(file.originalname).toLowerCase())
-
-	const mimeType =
-		fileTypes.test(file.mimetype) ||
-		file.mimetype ===
-			'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-
-	if (mimeType && extName) {
-		return cb(null, true)
-	} else {
-        return cb(null, false)
-
-	}
+// const socket=io("http://localhost:3000",{auth:{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9pZCI6MSwiaWF0IjoxNjk2MDYxNjI5LCJleHAiOjE2OTY2NjY0Mjl9.1vcPWce_RMgFqKA7XXcuLBZB_4XiEU7ybOa3aJb61rA"}})
+const socket=io("http://localhost:8000")   // ket noi toi socket server
+// const userIo=io.of("/user")
+socket.on("connect",()=>{
+    const h1=document.querySelector("h1")
+    h1.textContent=`you connected with id: ${socket.id}` 
+})
+socket.on("all-message",(message)=>{
+    const messagesContainer = document.getElementById("messages");
+    const messageElement = document.createElement("div");
+    messageElement.textContent = message;
+    console.log(message);
+    messagesContainer.appendChild(messageElement);
+})
+socket.on("connect_error",error=>{
+    console.log(error);
+})
+socket.on("test",(msg)=>{
+    console.log("msg");
+})
+function ale(){
+    alert("dmm")
 }
-const upload = multer({
-	storage: multer.memoryStorage(),
-	fileFilter: (req, file, cb) => {
-		checkFileType(file, cb)
-	},
-	charset: 'utf8',
+function sendMessage(){
+    const msg=document.querySelector("#message")
+    const message=msg.value
+    const room=document.querySelector("#room").value
+    console.log(message,"---",room);
+    socket.emit("send-message",message,room)
+    // socket.to(room).emit(`${socket.id} said ${message}`)
+    msg.value=""
+}
+socket.on ("happy2",()=>{
+    console.log("dmm");
 })
-// Define the route for handling file uploads
-app.post('/upload', upload.single('file'), async (req, res) => {
-	console.log('hello')
-    console.log(req.file);
-	// Access the uploaded file from req.file.buffer
-	const fileBuffer = req.file.buffer
+function joinChat(){
+    const msg=document.querySelector("#roomChat")
+    const roomChat=msg.value
+    console.log(roomChat);
+    // socket.emit("join-room",roomChat,ale)
+    socket.emit("join-room",roomChat)
 
-	// Convert the buffer to a string before passing it to pdf-parse
-	const fileContent = fileBuffer
-	const pagesDocx = await DocxCounter.count(fileBuffer)
-	console.log(pagesDocx)
-	res.json({pagesDocx})
-	// Use pdf-parse to parse the PDF and get information
-	//     PDFParser(fileContent).then(data => {
-	//       const numberOfPages = data.numpages;
-
-	//       res.json({ numberOfPages });
-	//     }).catch(error => {
-	//       console.error('Error parsing PDF:', error);
-	//       res.status(500).json({ error: 'Error parsing PDF' });
-	//     });
-	//   } catch (err) {
-	//     console.error('Error handling file upload:', err);
-	//     res.status(500).json({ error: 'Error handling file upload' });
-	//   }
-})
-app.use((error, req, res, next) => {
-	console.log(error.message)
-	const status = error.status || 500
-	const message = error.message
-	const data = error.data
-	res.status(status).json({message: message, data: data})
-})
-app.listen(PORT, () => {
-	console.log(`Server running at http://localhost:${PORT}`)
-})
+    socket.emit("happy")
+}
+var count =0
+// setInterval(()=>{
+//     socket.volatile.emit("ping",++count)
+// },1000)
+// document.addEventListener("keydown",e=>{
+//     if(e.target.matches("input")) return
+//     if (e.key === "c") socket.connect()
+//     if (e.key === "d") socket.disconnect()
+// })

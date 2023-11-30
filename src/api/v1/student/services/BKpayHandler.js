@@ -1,5 +1,6 @@
 import payment from '#~/model/payment.js'
 import user from '#~/model/user.js'
+import configuration from '#~/model/configuration.js'
 
 async function BKpayHandler({payment_id, user_id}) {
 	console.log(user_id)
@@ -10,10 +11,10 @@ async function BKpayHandler({payment_id, user_id}) {
 		paymentRecord.leftMoney = 0
 		paymentRecord.isPaid = true
 		paymentRecord.paidDate = new Date()
-		//Update the balance for student
+		//Update the balance for student based on system configuration 
 		var userRecord = await user.findOne({_id: user_id})
-		userRecord.balance += paymentRecord.paidMoney / 1000
-		console.log(userRecord.balance)
+		const configurationRecord = await configuration.findOne({})
+		userRecord.balance += paymentRecord.paidMoney / parseInt(configurationRecord.currentA4Price)
 		await user.findOneAndUpdate({_id: user_id}, userRecord, {
 			returnDocument: 'after',
 		})

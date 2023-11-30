@@ -19,6 +19,7 @@ async function paymentHandler({money, user_id}) {
 			message: 'Invalid money value. Please check whether it is larger than 0',
 		})
 	}
+	//Dùng để xóa những payment hết hạn cho UI dễ nhìn
 	const allPaymentRecord = await payment.find({user_id})
 	allPaymentRecord.forEach(async (paymentRecord) => {
 		const today = new Date()
