@@ -13,7 +13,7 @@ async function getLatestComplete(
     //TODO
     let latest = printingLogs.filter((log) => (log.status == "Completed"));
 
-    return [latest[latest.length - 1]]
+    return (latest.length > 0) ? [latest[latest.length - 1]] : [] //Edge case
 }
 
 export default getLatestComplete
