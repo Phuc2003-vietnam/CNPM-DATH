@@ -2,7 +2,7 @@ import printingLog from '#~/model/printingLog.js'
 import user from '#~/model/user.js'
 import printer from '#~/model/printer.js'
 import configuration from '#~/model/configuration.js'
-import {io} from '#~/config/'
+import {io} from '#~/config/socketIo.js'
 export function balance_helper(paperSize, numVersion, pagesPerSheet, document) {
 	let pay_amount = 0
 	let flag = document.pages % pagesPerSheet === 0 ? 0 : 1
@@ -14,14 +14,10 @@ export function balance_helper(paperSize, numVersion, pagesPerSheet, document) {
 	return pay_amount
 }
 
-async function confirm_print({
-	documents,
-	userInfo,
-	printerId,
-}) {
+async function confirm_print({documents, userInfo, printerId}) {
 	//Check printer
 	const checkPrinter = await printer.findOne({printerId})
-	console.log(checkPrinter);
+	console.log(checkPrinter)
 	if (!checkPrinter) {
 		return Promise.reject({
 			status: 404,
@@ -48,9 +44,8 @@ async function confirm_print({
 	let summary_payment = 0
 
 	for (const doc of documents) {
-
 		//Check fileType
-		if(!typelist.includes(doc.document.fileType)){
+		if (!typelist.includes(doc.document.fileType)) {
 			return Promise.reject({
 				status: 415,
 				message: `Unsupported Media Type of the document [${doc.document.title}.${doc.document.fileType}]`,
@@ -68,11 +63,10 @@ async function confirm_print({
 		const {paperSize, numVersion, pagesPerSheet, document} = doc
 		let pay_amount = balance_helper(paperSize, numVersion, pagesPerSheet, document)
 		summary_payment += pay_amount
-
 	}
 
 	//Not enough balance
-	if(userInfo.balance < summary_payment){
+	if (userInfo.balance < summary_payment) {
 		return Promise.reject({
 			status: 503,
 			message: `Sinh viên không đủ lượng giấy: yêu cầu ${summary_payment}, hiện có ${userInfo.balance}`,
@@ -88,7 +82,7 @@ async function confirm_print({
 			colorOption,
 			landScapeOption,
 			pagesPerSheet,
-			document
+			document,
 		} = doc
 
 		let singleConfirm = await confirm_print_single({
@@ -99,21 +93,23 @@ async function confirm_print({
 			pagesPerSheet,
 			document,
 			userInfo,
-			printerId
+			printerId,
 		})
 
 		all_docs.push(singleConfirm)
-
 	}
 	//Socket io implementation : it will send a signal to all online users connected to server
-	io.emit("update-queue",())
-
+	const data = {
+		message: 'Call the printer list api to fetch printer list =>change number of printing request',
+		target: 'student spso staff',
+	}
+	io.emit('update-printer-list', data)
+	//socket.on("update-printer-list",cb) : cb sẽ gọi api lấy fetch all printers
 	let result = {
 		documents: all_docs,
-		total_payment: summary_payment
+		total_payment: summary_payment,
 	}
 	return result
-
 }
 
 async function confirm_print_single({
@@ -124,11 +120,9 @@ async function confirm_print_single({
 	pagesPerSheet,
 	document,
 	userInfo,
-	printerId
+	printerId,
 }) {
-	
 	const newPrintingLog = await printingLog.create({
-
 		status: 'Queued', //InProgress, Completed, Failed
 		finishDate: null,
 
@@ -139,7 +133,7 @@ async function confirm_print_single({
 		pagesPerSheet,
 		document,
 		user_id: userInfo._id.toString(),
-		printerId
+		printerId,
 	})
 
 	// Update the user document to associate the new printing log

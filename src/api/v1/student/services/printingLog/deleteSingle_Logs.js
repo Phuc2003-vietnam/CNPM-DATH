@@ -2,6 +2,7 @@ import printingLog from '#~/model/printingLog.js'
 import user from '#~/model/user.js'
 import printer from '#~/model/printer.js'
 import {balance_helper} from './confirm_print.js'
+import {io} from '#~/config/socketIo.js'
 
 async function deleteSingle_Logs({
     printingLogId,
@@ -59,8 +60,13 @@ async function deleteSingle_Logs({
             }
         }
     )
-    
-
+    //Socket io implementation : it will send a signal to all online users connected to server
+	const data={
+		message: "Call the printer list api to fetch printer list =>change number of printing request",
+		target: "student spso staff"
+	}
+	io.emit("update-printer-list",data)
+	//socket.on("update-printer-list",cb) : cb sẽ gọi api lấy fetch all printers
     //Update Queue in Printer
     await printer.updateOne(
         {printerId: log.printerId},
