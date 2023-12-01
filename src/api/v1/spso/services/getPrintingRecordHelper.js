@@ -7,16 +7,18 @@ async function getPrintingRecordHelper(option, startDate, endDate) {
 				var printingLogObj = await printingLog
 					.findById(printingLogId)
 					.select(
-						'document status numVersion user_id  createdAt -_id'
+						'document status numVersion user_id  updatedAt -_id'
 					)
-				var logCreatedAt = new Date(printingLogObj.createdAt)
+					printingLogObj=printingLogObj.toObject();     
+					printingLogObj.createdAt=printingLogObj.updatedAt   // ben printingLog thì dùng update mới chính xác
+				var logCreatedAt = new Date(printingLogObj.updatedAt)
 				if (logCreatedAt >= startDate && logCreatedAt <= endDate) {
 					var userObj = await user
 						.findById(printingLogObj.user_id)
 						.select('firstName lastName mssv -_id')
 					// const userobj=userObj.toObject()
 
-					return {...userObj.toObject(), ...printingLogObj.toObject()} //remember to use toObject() otherwise it looks terrible
+					return {...userObj.toObject(), ...printingLogObj} //remember to use toObject() otherwise it looks terrible
 				} else {
 					// Log's createdAt is outside the specified range
 					return null
