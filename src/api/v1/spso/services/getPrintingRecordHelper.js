@@ -10,6 +10,7 @@ async function getPrintingRecordHelper(option, startDate, endDate) {
 						'document status numVersion user_id  updatedAt -_id'
 					)
 					printingLogObj=printingLogObj.toObject();     
+					if(printingLogObj.status=='Failed') return null
 					printingLogObj.createdAt=printingLogObj.updatedAt   // ben printingLog thì dùng update mới chính xác
 				var logCreatedAt = new Date(printingLogObj.updatedAt)
 				if (logCreatedAt >= startDate && logCreatedAt <= endDate) {

@@ -10,6 +10,7 @@ const userAuth = async (req, res, next) => {
 		const userService = new UserSerivce()
 		req.userService = userService
 		req.accessToken = accessToken
+		req.user_id=user_id
 		next()
 	} catch (err) {
 		console.log(err)
