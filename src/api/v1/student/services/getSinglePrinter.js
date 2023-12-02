@@ -1,9 +1,10 @@
 import printer from "#~/model/printer.js"
+import configuration from '#~/model/configuration.js'
 
 async function getSinglePrinter({
     printerId
 }) {
-
+	const {currentFileType} = await configuration.findOne({}).select("currentFileType -_id")
     //Null printerId
     if(printerId === undefined){
         return Promise.reject({
@@ -32,6 +33,7 @@ async function getSinglePrinter({
         waiting_amount: jobLength + queueLength,
         printingJob: undefined,
         printingQueue: undefined,
+        currentFileType
     }
 }
 
