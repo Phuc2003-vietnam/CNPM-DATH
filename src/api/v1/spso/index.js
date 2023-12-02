@@ -12,6 +12,8 @@ import spsoAuth from '#~/middleware/spsoAuth.js'
 import paginationHandler from '#~/middleware/paginationHandler.js'
 import viewReport from './controllers/viewReport.js'
 import detailStudent from './controllers/detailStudent.js'
+import getNotifications from './controllers/getNotifications.js'
+import checkAllNotifications from './controllers/checkAllNotifications.js'
 
 const spso_router = Router()
 spso_router.post('/printer', spsoAuth,addPrinter)
@@ -25,4 +27,6 @@ spso_router.get('/printingQueue', spsoAuth, getPrintingQueue)
 spso_router.get('/printingLog', spsoAuth, getPrintingLog)
 spso_router.get('/viewReport', spsoAuth, viewReport)
 spso_router.get('/detailStudent', spsoAuth, detailStudent)
+spso_router.get('/notices', spsoAuth, getNotifications)
+spso_router.put('/notices', spsoAuth, checkAllNotifications)
 export default spso_router

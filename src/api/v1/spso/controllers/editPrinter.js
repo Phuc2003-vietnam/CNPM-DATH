@@ -8,6 +8,7 @@ const editPrinter = async (req, res, next) => {
 			location,
 			status:parseInt(status),
 			description,
+			userInfo: req.spsoService.userInfo
 		})
 		res.status(200).json({data})
 	} catch (err) {

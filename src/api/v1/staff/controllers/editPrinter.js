@@ -4,6 +4,7 @@ const editPrinter = async (req, res, next) => {
 		const data=await req.staffService.editPrinter({
 			printerId,
 			status,
+			userInfo: req.staffService.userInfo
 		})
 		res.status(200).json({data})
 	} catch (err) {
