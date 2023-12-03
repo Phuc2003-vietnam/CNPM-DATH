@@ -8,8 +8,8 @@ async function getMessage({conversationId, user_id}) {
 		const data = await conversation.findById(conversationId)
 		if (data) {
 			//Handle sender not belong to a conversation
-			const members = data[0].members
-			if (members.includes(user_id)) {
+			const members = data.members
+			if (!members.includes(user_id)) {
 				return Promise.reject({
 					status: 403,
 					message: `Your account doesnt belong to this conversation id`,
@@ -30,6 +30,8 @@ async function getMessage({conversationId, user_id}) {
 			})
 		}
 	} catch (err) {
+		console.log(err);
+
 		return Promise.reject({status: 403, message: 'The conversationId is not valid you send: '+err.value})
 	}
 }
