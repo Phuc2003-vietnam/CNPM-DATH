@@ -30,7 +30,7 @@ async function getMessage({conversationId, user_id}) {
 			})
 		}
 	} catch (err) {
-		return Promise.reject({status: 500, message: 'System Error'})
+		return Promise.reject({status: 403, message: 'The conversationId is not valid you send: '+err.value})
 	}
 }
 export default getMessage
