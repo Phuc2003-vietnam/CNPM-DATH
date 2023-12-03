@@ -16,11 +16,12 @@ async function newNotifications({
     }
 
     let managerList = await getSpsoStaff({user_id: userInfo._id.toString()})
+
     let newsPromise = managerList.map(async(ele) => {
 
         //Receiver
         let receiver = {
-            user_id: ele.receiver_id.toString(),
+            user_id: ele._id.toString(),
             role: ele.role,
             firstName: ele.firstName,
             lastName: ele.lastName
@@ -38,6 +39,8 @@ async function newNotifications({
             location: result.location,
             receiver
         })
+
+        return ele
     })
 
     let newsResult = await Promise.all(newsPromise)
@@ -54,6 +57,8 @@ async function newNotifications({
         location: result.location,
         receiver: sender
     })
+
+    return newsResult
 
 }
 

@@ -10,8 +10,10 @@ async function checkAllNotifications({
         },
         {
             $set: { seen: true }
-        }
+        },
+        {returnDocument: 'after'}
     ).sort({ actionTime: -1 })
+    .then(() => notification.find({ 'receiver.user_id': user_id }))
 
     //Notification data
     const notice_data = {

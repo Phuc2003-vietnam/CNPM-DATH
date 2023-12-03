@@ -37,7 +37,7 @@ async function editPrinter({printerId, status, userInfo}) {
 		//Update Notifications
 		await newNotifications({
 			userInfo,
-			action,
+			action: status,
 			result
 		})
 

@@ -49,7 +49,7 @@ async function editPrinter({printerId, brand, model, location, status, descripti
 		//Update Notifications
 		await newNotifications({
 			userInfo,
-			action,
+			action: status,
 			result
 		})
 
