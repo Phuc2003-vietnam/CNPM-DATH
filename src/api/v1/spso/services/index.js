@@ -25,6 +25,5 @@ class SpsoService extends UserService {
     getPrintingLog=getPrintingLog
     viewReport=viewReport
     detailStudent=detailStudent
-    getSpsoStaff=getSpsoStaff
 }
 export default SpsoService
