@@ -11,7 +11,7 @@ async function getSpsoStaff({ user_id }) {
       })
       .select({
         _id: 1, // Exclude the default _id field
-        // receiver_id: '$_id', // Rename _id to receiver_id
+        receiver_id: '$_id', // Rename _id to receiver_id
         location: 1,
         email: 1,
         firstName: 1,
