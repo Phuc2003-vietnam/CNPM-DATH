@@ -13,20 +13,22 @@ function initializeSocketServer(httpServer) {
 	io.on('connection', (socket) => {
 		console.log(`Socket IO connected, user ${socket.id}`)
 		socket.emit("check","You are connected to socket io server")
-		// socket.on('join-room', (ward_id) => {
-		// 	//client socket.emit("join-room", ward_id)
-		// 	socket.join(ward_id)
-		// })
-		// socket.on('notification', (employee_id_list, ward_id) => {
-		// 	////client socket.emit("notification", employee_id_list,wardid),
-		// 	const data = {
-		// 		//employee_id_list lấy được khi gọi api post notification sẽ có return
-		// 		type: 'notification',
-		// 		state: -1,
-		// 		employee_id_list,
-		// 	}
-		// 	io.to(ward_id).emit('new-notification', data) //sau đó tùy client có employee id thuộc employee id list hay không mà ta sẽ
-		// }) //gọi api get number notification. Còn lúc client offline thì khi vào thì bên FE sẽ gọi api get notification rồi nên k lo
+	    //client socket.emit("join-room", conversationId),gọi sau khi bấm vào hình tròn người
+
+		socket.on('join-room', (conversationId) => {
+			socket.join(conversationId)
+		})
+		socket.on('create-message', (conversationId) => {
+			////client socket.emit("create-message",conversationId),
+			const data = {
+				message: 'Call the GET message API',
+				target: '2 members of a conversation',
+				reason: "1 member create a new message into that conversationId",
+			}
+			io.to(ward_id).emit('get-message', data) //sau đó tất cả members thuộc về 1 conversationId sẽ fetch lại tin nhắn
+			////client socket.on("get-message",cb) = > cb sẽ fetch lại tin nhắn
+
+		}) 
 	})
 	// io.use(async (socket, next) => {
 	// 	try {

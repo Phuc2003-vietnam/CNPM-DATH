@@ -1,11 +1,16 @@
 import conversation from '#~/model/conversation.js'
+import user from '#~/model/user.js'
 
 import {} from 'dotenv/config'
 
 async function getConversationId(members) {
 	try {
-        // not yet test if  id in members valid
-		console.log(members);
+		// check if  receiver_id in members valid
+		const receiver_id = members[1]
+		const receiver = await user.findById(receiver_id)
+		if (!receiver) {
+			return Promise.reject({status: 404, message: `The receiver_id is not correct you send: ${receiver_id}`})
+		}
 		var conversationData = await conversation.find(
 			{
 				members: {
@@ -21,14 +26,13 @@ async function getConversationId(members) {
 				updatedAt: 1,
 			}
 		)
-			console.log(conversationData);
 		// if find no conversation between 2 people , create a conversation with empty message
 		if (conversationData.length == 0) {
 			conversationData = await conversation.create({
 				members,
 			})
-            conversationData =  conversationData.toObject();
-			conversationData.conversationId=conversationData._id
+			conversationData = conversationData.toObject()
+			conversationData.conversationId = conversationData._id
 		}
 		return conversationData
 	} catch (err) {

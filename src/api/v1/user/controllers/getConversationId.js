@@ -1,4 +1,4 @@
-const getConversation = async (req, res, next) => {
+const getConversationId = async (req, res, next) => {
 	try {
         var sender_id=req.user_id
         var {receiver_id}=req.query
@@ -9,4 +9,4 @@ const getConversation = async (req, res, next) => {
 	}
 }
 
-export default getConversation
+export default getConversationId

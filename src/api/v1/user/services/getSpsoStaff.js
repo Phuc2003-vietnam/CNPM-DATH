@@ -4,6 +4,7 @@ const access_token_key = process.env.ACCESS_TOKEN_KEY;
 
 async function getSpsoStaff({ user_id }) {
   try {
+    // not handle case when student use this api
     const managerList = await user
       .find({
         role: { $in: ['staff', 'spso'] },
