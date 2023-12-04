@@ -12,9 +12,10 @@ async function addMessage({conversationId, senderId, text}) {
 		const data = await conversation.findById(conversationId)
 		if (data) {
 			//Handle sender not belong to a conversation
-
+			console.log(senderId);
 			const members = data.members
-			if (members.includes(senderId)) {
+			console.log(members);
+			if (!members.includes(senderId)) {
 				return Promise.reject({
 					status: 403,
 					message: `Your account doesnt belong to this conversation id`,
