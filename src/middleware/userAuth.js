@@ -5,6 +5,7 @@ const access_token_key = process.env.ACCESS_TOKEN_KEY
 
 const userAuth = async (req, res, next) => {
 	try {
+		// console.log(req.headers.authorization);
 		const accessToken = req.headers.authorization.split(' ')[1]
 		var {user_id, session_id} = jwt.verify(accessToken, access_token_key)
 		const userService = new UserSerivce()

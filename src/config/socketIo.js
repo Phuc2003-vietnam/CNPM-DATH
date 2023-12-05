@@ -14,9 +14,12 @@ function initializeSocketServer(httpServer) {
 		console.log(`Socket IO connected, user ${socket.id}`)
 		socket.emit("check","You are connected to socket io server")
 	    //client socket.emit("join-room", conversationId),gọi sau khi bấm vào hình tròn người
-
+		socket.on("test",()=>{
+			console.log("tessting");
+		})
 		socket.on('join-room', (conversationId) => {
 			socket.join(conversationId)
+			console.log(socket.id + " has join a room");
 		})
 		socket.on('create-message', (conversationId) => {
 			////client socket.emit("create-message",conversationId),
@@ -25,7 +28,9 @@ function initializeSocketServer(httpServer) {
 				target: '2 members of a conversation',
 				reason: "1 member create a new message into that conversationId",
 			}
-			io.to(ward_id).emit('get-message', data) //sau đó tất cả members thuộc về 1 conversationId sẽ fetch lại tin nhắn
+			console.log(socket.id + " has create a message +++");
+
+			io.to(conversationId).emit('get-message', data) //sau đó tất cả members thuộc về 1 conversationId sẽ fetch lại tin nhắn
 			////client socket.on("get-message",cb) = > cb sẽ fetch lại tin nhắn
 
 		}) 
