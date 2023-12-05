@@ -20,7 +20,7 @@ async function getMessage({conversationId, user_id}) {
 					conversationId,
 				})
 				.select('conversationId senderId text createdAt')
-				.sort({createdAt: -1})
+				.sort({createdAt: 1})
 			return conversationData
 		} else {
 			//Handle conversationId wrong value

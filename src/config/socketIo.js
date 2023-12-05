@@ -19,16 +19,19 @@ function initializeSocketServer(httpServer) {
 		})
 		socket.on('join-room', (conversationId) => {
 			socket.join(conversationId)
-			console.log(socket.id + " has join a room");
+			console.log(socket.id + " has join a room: "+conversationId);
 		})
-		socket.on('create-message', (conversationId) => {
+		socket.on('create-message', (conversationId,message) => {
 			////client socket.emit("create-message",conversationId),
 			const data = {
 				message: 'Call the GET message API',
 				target: '2 members of a conversation',
 				reason: "1 member create a new message into that conversationId",
+				text_send: message,
+				conversationId:conversationId
 			}
-			console.log(socket.id + " has create a message +++");
+			console.log(socket.id + " has create a message: " + message);
+
 
 			io.to(conversationId).emit('get-message', data) //sau đó tất cả members thuộc về 1 conversationId sẽ fetch lại tin nhắn
 			////client socket.on("get-message",cb) = > cb sẽ fetch lại tin nhắn
