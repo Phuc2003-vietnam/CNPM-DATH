@@ -73,7 +73,7 @@ function descriptionHelper(action, sender, receiver, printerInfo) {
     }
 
     //Chủ ngữ
-    let subject = (sender.user_id == receiver.user_id) ? "Bạn" : `${sender.lastName} ${sender.lastName}`
+    let subject = (sender.user_id == receiver.user_id) ? "Bạn" : `${sender.lastName} ${sender.firstName}`
     
     let description = `
         <p>
