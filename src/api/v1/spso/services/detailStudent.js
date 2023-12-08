@@ -32,7 +32,7 @@ async function detailStudent({
 
     const allLogs = await printingLog
         .find(query)
-        .select('user_id finishDate status document numVersion paperSize pagesPerSheet')
+        .select('user_id printerId finishDate status document numVersion paperSize pagesPerSheet')
         .sort({finishDate: sortDirection})
 
     allLogs.forEach((log) => {
